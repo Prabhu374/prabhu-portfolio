@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prabhu C — Backend Developer Resume</title>
+  <style>
+    /* ===== SCREEN + PRINT BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent:  #1a56db;
+      --text:    #111827;
+      --muted:   #4b5563;
+      --light:   #6b7280;
+      --border:  #e5e7eb;
+      --bg:      #ffffff;
+      --tag-bg:  #eff6ff;
+      --tag-col: #1e40af;
+    }
+
+    body {
+      font-family: 'Calibri', 'Segoe UI', Arial, sans-serif;
+      font-size: 10.5pt;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+
+    /* ===== PAGE WRAPPER ===== */
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 36px 40px 40px;
+    }
+
+    /* ===== HEADER ===== */
+    .header { border-bottom: 2.5px solid var(--accent); padding-bottom: 14px; margin-bottom: 18px; }
+    .header-name { font-size: 26pt; font-weight: 700; letter-spacing: -0.5px; color: var(--text); line-height: 1.1; }
+    .header-title { font-size: 11.5pt; color: var(--accent); font-weight: 600; margin-top: 4px; }
+    .contact-row {
+      display: flex; flex-wrap: wrap; gap: 4px 20px;
+      margin-top: 9px; font-size: 9.5pt; color: var(--muted);
+    }
+    .contact-row span { display: flex; align-items: center; gap: 5px; }
+    .contact-row a { color: var(--accent); text-decoration: none; }
+
+    /* ===== SECTION ===== */
+    .section { margin-bottom: 16px; }
+    .section-title {
+      font-size: 10pt; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.2px; color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px; margin-bottom: 10px;
+    }
+
+    /* ===== SUMMARY ===== */
+    .summary p { color: var(--muted); font-size: 10pt; }
+
+    /* ===== SKILLS ===== */
+    .skills-list { display: flex; flex-direction: column; gap: 5px; }
+    .skill-row { display: flex; gap: 8px; font-size: 10pt; }
+    .skill-label { font-weight: 600; color: var(--text); min-width: 175px; flex-shrink: 0; }
+    .skill-value { color: var(--muted); }
+
+    /* ===== EXPERIENCE ===== */
+    .exp-item { margin-bottom: 14px; }
+    .exp-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      flex-wrap: wrap; gap: 4px;
+    }
+    .exp-role { font-size: 11pt; font-weight: 700; color: var(--text); }
+    .exp-date { font-size: 9.5pt; color: var(--muted); white-space: nowrap; font-style: italic; }
+    .exp-company { font-size: 10pt; color: var(--accent); font-weight: 600; margin-top: 1px; }
+    .exp-location { font-size: 9.5pt; color: var(--light); margin-bottom: 7px; }
+    .exp-bullets { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+    .exp-bullets li {
+      font-size: 10pt; color: var(--muted);
+      padding-left: 14px; position: relative;
+    }
+    .exp-bullets li::before {
+      content: '▸'; position: absolute; left: 0;
+      color: var(--accent); font-size: 9pt;
+    }
+    .exp-bullets li strong { color: var(--text); }
+
+    /* ===== PROJECTS ===== */
+    .project-item { margin-bottom: 12px; }
+    .proj-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px; }
+    .proj-name { font-size: 10.5pt; font-weight: 700; color: var(--text); }
+    .proj-tech { font-size: 9pt; color: var(--accent); font-style: italic; }
+    .proj-bullets { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 3px; margin-top: 4px; }
+    .proj-bullets li {
+      font-size: 10pt; color: var(--muted);
+      padding-left: 14px; position: relative;
+    }
+    .proj-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 9pt; }
+    .proj-bullets li strong { color: var(--text); }
+
+    /* ===== EDUCATION ===== */
+    .edu-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px; }
+    .edu-degree { font-size: 11pt; font-weight: 700; color: var(--text); }
+    .edu-date { font-size: 9.5pt; color: var(--muted); font-style: italic; }
+    .edu-school { font-size: 10pt; color: var(--accent); font-weight: 600; margin-top: 1px; }
+    .edu-meta { font-size: 9.5pt; color: var(--muted); margin-top: 2px; }
+
+    /* ===== PRINT ===== */
+    @page {
+      margin: 0;
+      size: A4;
+    }
+    @media print {
+      body { font-size: 9pt; background: white; line-height: 1.4; }
+      .page {
+        padding: 18px 28px 18px;
+        max-width: 100%;
+        margin: 0;
+        box-shadow: none;
+        border-radius: 0;
+      }
+      .no-print { display: none; }
+      a { color: inherit !important; text-decoration: none; }
+      .header { padding-bottom: 8px; margin-bottom: 10px; }
+      .header-name { font-size: 18pt; }
+      .header-title { font-size: 9.5pt; margin-top: 2px; }
+      .contact-row { font-size: 8.5pt; gap: 2px 14px; margin-top: 6px; }
+      .section { margin-bottom: 9px; }
+      .section-title { margin-bottom: 5px; padding-bottom: 3px; font-size: 8.5pt; }
+      .summary p { font-size: 9pt; }
+      .skills-list { gap: 3px; }
+      .skill-row { font-size: 9pt; }
+      .skill-label { min-width: 155px; }
+      .exp-item { margin-bottom: 8px; }
+      .exp-role { font-size: 10pt; }
+      .exp-company { font-size: 9pt; }
+      .exp-location { font-size: 8.5pt; margin-bottom: 5px; }
+      .exp-date { font-size: 8.5pt; }
+      .exp-bullets { gap: 3px; }
+      .exp-bullets li { font-size: 9pt; padding-left: 12px; }
+      .project-item { margin-bottom: 7px; }
+      .proj-name { font-size: 9.5pt; }
+      .proj-tech { font-size: 8.5pt; }
+      .proj-bullets { gap: 2px; margin-top: 3px; }
+      .proj-bullets li { font-size: 9pt; padding-left: 12px; }
+      .edu-degree { font-size: 10pt; }
+      .edu-school { font-size: 9pt; }
+      .edu-meta { font-size: 8.5pt; margin-top: 1px; }
+    }
+
+    /* ===== SCREEN EXTRAS ===== */
+    @media screen {
+      body { background: #f3f4f6; }
+      .page {
+        background: white;
+        margin: 32px auto 48px;
+        box-shadow: 0 2px 24px rgba(0,0,0,0.12);
+        border-radius: 4px;
+      }
+      .download-bar {
+        max-width: 780px; margin: 24px auto 0;
+        display: flex; justify-content: flex-end; padding: 0 8px;
+      }
+      .download-btn {
+        background: var(--accent); color: white;
+        border: none; padding: 10px 22px; border-radius: 6px;
+        font-size: 0.9rem; font-weight: 600; cursor: pointer;
+        display: flex; align-items: center; gap: 8px;
+        text-decoration: none;
+      }
+      .download-btn:hover { background: #1e40af; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Download button (hidden when printing) -->
+  <div class="download-bar no-print">
+    <button class="download-btn" onclick="window.print()">
+      &#x21E9; Download as PDF &nbsp;(Print → Save as PDF)
+    </button>
+  </div>
+
+  <div class="page">
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+      <div class="header-name">PRABHU C</div>
+      <div class="header-title">Backend Developer &nbsp;|&nbsp; Node.js &nbsp;|&nbsp; Express.js &nbsp;|&nbsp; PostgreSQL &nbsp;|&nbsp; REST APIs</div>
+      <div class="contact-row">
+        <span>&#x1F4CD; Chennai, Tamil Nadu, India</span>
+        <span>&#x1F4DE; +91-8939511571</span>
+        <span>&#x2709; <a href="mailto:prabujazz2020@gmail.com">prabujazz2020@gmail.com</a></span>
+        <span>&#x1F517; <a href="https://www.linkedin.com/in/prabhu-chelladurai" target="_blank">linkedin.com/in/prabhu-chelladurai</a></span>
+      </div>
+    </header>
+
+    <!-- ===== PROFESSIONAL SUMMARY ===== -->
+    <section class="section summary">
+      <div class="section-title">Professional Summary</div>
+      <p>
+        Results-driven <strong>Backend Developer</strong> with 1+ year of professional experience designing and delivering
+        scalable <strong>RESTful APIs</strong> for a healthcare IT platform (RIS/PACS) serving US hospital clients.
+        Proficient in <strong>Node.js, Express.js, and PostgreSQL</strong> with hands-on expertise in database schema design,
+        CRUD operations, third-party API integration, and performance optimization.
+        Adept at working in <strong>Agile, cross-functional team</strong> environments with strong debugging and code review skills.
+        Seeking a Backend Developer / Software Engineer role to architect high-performance, production-grade backend systems.
+      </p>
+    </section>
+
+    <!-- ===== TECHNICAL SKILLS ===== -->
+    <section class="section">
+      <div class="section-title">Technical Skills</div>
+      <div class="skills-list">
+        <div class="skill-row">
+          <span class="skill-label">Programming Languages:</span>
+          <span class="skill-value">JavaScript (ES6+), SQL</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-label">Backend Frameworks:</span>
+          <span class="skill-value">Node.js, Express.js</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-label">API Development:</span>
+          <span class="skill-value">RESTful API Design, API Integration, Third-Party API Integration, JSON, HTTP/HTTPS</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-label">Databases:</span>
+          <span class="skill-value">PostgreSQL, Database Schema Design, Query Optimization, CRUD Operations</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-label">Tools &amp; Platforms:</span>
+          <span class="skill-value">Git, GitHub, Postman, npm, VS Code</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-label">Concepts &amp; Practices:</span>
+          <span class="skill-value">Debugging, Performance Optimization, Version Control, Code Review, Agile, SDLC</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROFESSIONAL EXPERIENCE ===== -->
+    <section class="section">
+      <div class="section-title">Professional Experience</div>
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-role">Software Developer (Backend)</span>
+          <span class="exp-date">June 2025 – Present</span>
+        </div>
+        <div class="exp-company">LMImaging (India) Private Limited — Livemedica &nbsp;·&nbsp; Healthcare IT (RIS/PACS Platform)</div>
+        <div class="exp-location">Chennai, Tamil Nadu, India</div>
+        <ul class="exp-bullets">
+          <li>
+            Developed and maintained <strong>15+ RESTful APIs</strong> using Node.js and Express.js to support core
+            <strong>RIS/PACS workflows</strong> — including radiology worklist management, order processing, and report
+            generation — for US hospital clients, reducing workflow processing time by <strong>~25%</strong>.
+          </li>
+          <li>
+            Designed and optimized <strong>PostgreSQL schemas and complex SQL queries</strong> to handle clinical data
+            including patient records, study metadata, and radiologist assignments across
+            <strong>10+ production workflow modules</strong>, improving query efficiency by <strong>30%</strong>.
+          </li>
+          <li>
+            Integrated backend services with <strong>third-party healthcare systems (HL7/FHIR standards)</strong> to
+            enable seamless data exchange between RIS, PACS, and hospital HIS/EMR platforms, reducing manual data
+            reconciliation by <strong>~40%</strong>.
+          </li>
+          <li>
+            Led bug investigation and <strong>feature development</strong> across a production healthcare IT product
+            used by radiologists and radiology technologists in US hospitals, resolving <strong>30+ critical bugs</strong>
+            within Agile sprint cycles and improving platform reliability.
+          </li>
+          <li>
+            Validated <strong>20+ API endpoints</strong> using Postman test suites and managed feature branches across
+            the team via Git/GitHub, following version control and code review best practices that reduced
+            integration issues by <strong>35%</strong>.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section class="section">
+      <div class="section-title">Projects</div>
+
+      <div class="project-item">
+        <div class="proj-header">
+          <span class="proj-name">RESTful Task Management API</span>
+          <span class="proj-tech">Node.js · Express.js · PostgreSQL · JWT</span>
+        </div>
+        <ul class="proj-bullets">
+          <li>Built a <strong>full-featured REST API</strong> supporting user authentication (JWT), task CRUD operations, assignment workflows, and status tracking across <strong>8 normalized PostgreSQL tables</strong>.</li>
+          <li>Implemented <strong>role-based access control</strong> and input validation middleware, reducing unauthorized access attempts by 100% in testing.</li>
+          <li>Optimized SQL queries with <strong>indexing strategies</strong>, achieving sub-100ms response times under simulated load.</li>
+        </ul>
+      </div>
+
+      <div class="project-item">
+        <div class="proj-header">
+          <span class="proj-name">Inventory Management Backend System</span>
+          <span class="proj-tech">Node.js · Express.js · PostgreSQL · REST API</span>
+        </div>
+        <ul class="proj-bullets">
+          <li>Designed and implemented a <strong>RESTful backend API</strong> for inventory tracking including product CRUD, stock alerts, and supplier management across <strong>6 relational tables</strong>.</li>
+          <li>Integrated a <strong>third-party email notification API</strong> for low-stock alerts, reducing manual monitoring effort.</li>
+          <li>Documented all <strong>20+ API endpoints</strong> using Postman collections, enabling faster onboarding for collaborators.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== EDUCATION ===== -->
+    <section class="section">
+      <div class="section-title">Education</div>
+      <div class="edu-header">
+        <span class="edu-degree">M.Sc. Computer Science &amp; Technology</span>
+        <span class="edu-date">Graduated: 2023</span>
+      </div>
+      <div class="edu-school">SRM Arts and Science College, Madras University &nbsp;·&nbsp; Chennai, Tamil Nadu</div>
+      <div class="edu-meta">Aggregate: 72% &nbsp;|&nbsp; CGPA: 7.20 / 10</div>
+    </section>
+
+  </div><!-- /page -->
+
+</body>
+</html>

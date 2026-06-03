@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prabhu C | Backend Developer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a class="logo" href="#hero">&lt;Prabhu /&gt;</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="grid-overlay"></div>
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow"><span class="dot"></span> Available for opportunities</p>
+      <h1 class="hero-name">Prabhu <span class="accent">C</span></h1>
+      <h2 class="hero-title">
+        <span class="typed-wrapper">
+          <span class="typed" id="typed"></span><span class="cursor">|</span>
+        </span>
+      </h2>
+      <p class="hero-desc">
+        Results-driven Backend Developer with 1+ year of hands-on experience building
+        scalable REST APIs and web applications using Node.js, Express.js, and PostgreSQL.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Get in Touch</a>
+        <a href="#experience" class="btn btn-outline">View Work</a>
+        <a href="resume.html" target="_blank" class="btn btn-outline">&#x21E9; Resume</a>
+      </div>
+      <div class="hero-socials">
+        <a href="mailto:prabujazz2020@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/prabhu-chelladurai" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="tel:+918939511571" aria-label="Phone"><i class="fas fa-phone"></i></a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="code-card">
+        <div class="code-card-header">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="file-name">server.js</span>
+        </div>
+        <pre class="code-body"><span class="kw">const</span> <span class="fn">express</span> = <span class="fn">require</span>(<span class="str">'express'</span>);
+<span class="kw">const</span> app = <span class="fn">express</span>();
+
+app.<span class="fn">get</span>(<span class="str">'/api/hello'</span>, (req, res) =&gt; &#123;
+  res.<span class="fn">json</span>(&#123;
+    developer: <span class="str">'Prabhu C'</span>,
+    role: <span class="str">'Backend Developer'</span>,
+    stack: [<span class="str">'Node.js'</span>, <span class="str">'Express'</span>,
+            <span class="str">'PostgreSQL'</span>],
+    status: <span class="str">'ready to build'</span>
+  &#125;);
+&#125;);
+
+app.<span class="fn">listen</span>(<span class="num">3000</span>);</pre>
+      </div>
+    </div>
+    <a href="#about" class="scroll-hint" aria-label="Scroll down">
+      <i class="fas fa-chevron-down"></i>
+    </a>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">01 / About</span>
+        <h2 class="section-title">Who I Am</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I'm a <strong>Backend Developer</strong> based in Chennai, Tamil Nadu, passionate about
+            building robust, scalable server-side applications. I specialize in crafting clean RESTful
+            APIs, designing efficient database schemas, and turning complex requirements into reliable
+            backend systems.
+          </p>
+          <p>
+            With experience at <strong>LMImaging (India) Private Limited</strong>, I've worked across
+            the full lifecycle of backend features — from schema design and API development to integration,
+            debugging, and performance tuning — always in close collaboration with frontend and QA teams.
+          </p>
+          <p>
+            I'm driven by clean code, strong fundamentals, and a desire to keep growing as an engineer.
+          </p>
+          <div class="about-highlights">
+            <div class="highlight-item">
+              <span class="highlight-number">1+</span>
+              <span class="highlight-label">Year of Experience</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-number">REST</span>
+              <span class="highlight-label">API Specialist</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-number">PG</span>
+              <span class="highlight-label">SQL Expert</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-info">
+          <div class="info-card">
+            <h3>Quick Info</h3>
+            <ul class="info-list">
+              <li><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu, India</li>
+              <li><i class="fas fa-envelope"></i> prabujazz2020@gmail.com</li>
+              <li><i class="fas fa-phone"></i> +91-8939511571</li>
+              <li><i class="fab fa-linkedin"></i> linkedin.com/in/prabhu-chelladurai</li>
+              <li><i class="fas fa-graduation-cap"></i> M.Sc. Computer Science & Technology</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section section-dark" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">02 / Skills</span>
+        <h2 class="section-title">Technical Skills</h2>
+      </div>
+      <div class="skills-grid">
+
+        <div class="skill-category" data-delay="0">
+          <div class="skill-icon"><i class="fas fa-code"></i></div>
+          <h3>Languages</h3>
+          <div class="skill-tags">
+            <span class="tag">JavaScript</span>
+            <span class="tag">SQL</span>
+          </div>
+        </div>
+
+        <div class="skill-category" data-delay="100">
+          <div class="skill-icon"><i class="fas fa-server"></i></div>
+          <h3>Backend</h3>
+          <div class="skill-tags">
+            <span class="tag">Node.js</span>
+            <span class="tag">Express.js</span>
+            <span class="tag">REST APIs</span>
+          </div>
+        </div>
+
+        <div class="skill-category" data-delay="200">
+          <div class="skill-icon"><i class="fas fa-database"></i></div>
+          <h3>Database</h3>
+          <div class="skill-tags">
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Schema Design</span>
+            <span class="tag">CRUD</span>
+          </div>
+        </div>
+
+        <div class="skill-category" data-delay="300">
+          <div class="skill-icon"><i class="fas fa-tools"></i></div>
+          <h3>Tools & Platforms</h3>
+          <div class="skill-tags">
+            <span class="tag">Git</span>
+            <span class="tag">GitHub</span>
+            <span class="tag">Postman</span>
+          </div>
+        </div>
+
+        <div class="skill-category" data-delay="400">
+          <div class="skill-icon"><i class="fas fa-lightbulb"></i></div>
+          <h3>Concepts</h3>
+          <div class="skill-tags">
+            <span class="tag">CRUD Operations</span>
+            <span class="tag">API Integration</span>
+            <span class="tag">Debugging</span>
+            <span class="tag">Performance Optimization</span>
+            <span class="tag">Schema Design</span>
+            <span class="tag">Query Optimization</span>
+          </div>
+        </div>
+
+        <div class="skill-category" data-delay="500">
+          <div class="skill-icon"><i class="fas fa-hospital"></i></div>
+          <h3>Healthcare IT</h3>
+          <div class="skill-tags">
+            <span class="tag">RIS/PACS</span>
+            <span class="tag">HL7/FHIR</span>
+            <span class="tag">HIS/EMR Integration</span>
+            <span class="tag">Clinical Workflows</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Skill bars -->
+      <div class="skill-bars">
+        <h3 class="bars-title">Proficiency</h3>
+        <div class="bar-item">
+          <div class="bar-label"><span>Node.js / Express.js</span><span>90%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-width="90"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label"><span>JavaScript</span><span>85%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-width="85"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label"><span>PostgreSQL / SQL</span><span>82%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-width="82"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label"><span>REST API Design</span><span>88%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-width="88"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label"><span>HL7/FHIR Integration</span><span>72%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-width="72"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label"><span>Git / GitHub</span><span>78%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-width="78"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">03 / Experience</span>
+        <h2 class="section-title">Professional Experience</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-role">Software Developer (Backend)</h3>
+                <p class="timeline-company"><i class="fas fa-building"></i> LMImaging (India) Private Limited — Livemedica</p>
+                <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu &nbsp;&middot;&nbsp; Healthcare IT (RIS/PACS Platform)</p>
+              </div>
+              <span class="timeline-badge">June 2025 – Present</span>
+            </div>
+            <ul class="timeline-bullets">
+              <li>
+                <i class="fas fa-circle-check"></i>
+                Developed and maintained <strong>15+ RESTful APIs</strong> using Node.js and Express.js to support core <strong>RIS/PACS workflows</strong> — radiology worklist management, order processing, and report generation — for US hospital clients.
+              </li>
+              <li>
+                <i class="fas fa-circle-check"></i>
+                Designed and optimized <strong>PostgreSQL schemas and complex SQL queries</strong> to handle clinical data including patient records, study metadata, and radiologist assignments across <strong>10+ production workflow modules</strong>.
+              </li>
+              <li>
+                <i class="fas fa-circle-check"></i>
+                Integrated backend services with <strong>third-party healthcare systems (HL7/FHIR standards)</strong> to enable seamless data exchange between RIS, PACS, and hospital HIS/EMR platforms.
+              </li>
+              <li>
+                <i class="fas fa-circle-check"></i>
+                Led bug investigation and feature development on a <strong>production healthcare IT product</strong> used by radiologists and radiology technologists in US hospitals, resolving <strong>30+ critical bugs</strong> within sprint cycles.
+              </li>
+              <li>
+                <i class="fas fa-circle-check"></i>
+                Validated <strong>20+ API endpoints</strong> using Postman and managed feature branches via Git/GitHub, enforcing version control and code review best practices across the team.
+              </li>
+            </ul>
+            <div class="timeline-tech">
+              <span class="tech-pill">Node.js</span>
+              <span class="tech-pill">Express.js</span>
+              <span class="tech-pill">PostgreSQL</span>
+              <span class="tech-pill">HL7/FHIR</span>
+              <span class="tech-pill">REST APIs</span>
+              <span class="tech-pill">Git</span>
+              <span class="tech-pill">Postman</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section section-dark" id="education">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">04 / Education</span>
+        <h2 class="section-title">Education</h2>
+      </div>
+      <div class="edu-card">
+        <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div class="edu-content">
+          <h3>M.Sc. Computer Science & Technology</h3>
+          <p class="edu-college"><i class="fas fa-university"></i> SRM Arts and Science College, Madras University, Chennai</p>
+          <div class="edu-meta">
+            <span><i class="fas fa-calendar-alt"></i> Graduated: 2023</span>
+            <span><i class="fas fa-star"></i> 72% &nbsp;|&nbsp; CGPA: 7.20 / 10</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">05 / Contact</span>
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-sub">I'm open to Backend Developer / Software Engineer roles. Feel free to reach out!</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card" onclick="window.location.href='mailto:prabujazz2020@gmail.com'">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <h4>Email</h4>
+          <p>prabujazz2020@gmail.com</p>
+        </div>
+        <div class="contact-card" onclick="window.location.href='tel:+918939511571'">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <h4>Phone</h4>
+          <p>+91-8939511571</p>
+        </div>
+        <div class="contact-card" onclick="window.open('https://www.linkedin.com/in/prabhu-chelladurai','_blank')">
+          <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+          <h4>LinkedIn</h4>
+          <p>prabhu-chelladurai</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <h4>Location</h4>
+          <p>Chennai, Tamil Nadu, India</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Designed & Built by <span class="accent">Prabhu C</span> &nbsp;·&nbsp; Backend Developer</p>
+    <p class="footer-sub">Node.js · Express.js · PostgreSQL · REST APIs</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
