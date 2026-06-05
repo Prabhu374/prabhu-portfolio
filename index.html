@@ -5,20 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Prabhu C | Backend Developer</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
 
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
   <!-- NAV -->
   <nav class="navbar" id="navbar">
+    <div class="progress-bar" id="progressBar"></div>
     <div class="nav-container">
       <a class="logo" href="#hero">&lt;Prabhu /&gt;</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#experience">Experience</a></li>
-        <li><a href="#education">Education</a></li>
+        <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -29,70 +34,114 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
+    <canvas class="particle-canvas" id="particleCanvas"></canvas>
     <div class="hero-bg">
       <div class="grid-overlay"></div>
       <div class="glow glow-1"></div>
       <div class="glow glow-2"></div>
+      <div class="glow glow-3"></div>
     </div>
+
     <div class="hero-content">
-      <p class="hero-eyebrow"><span class="dot"></span> Available for opportunities</p>
-      <h1 class="hero-name">Prabhu <span class="accent">C</span></h1>
+      <p class="hero-eyebrow"><span class="status-dot"></span> Available for opportunities</p>
+      <h1 class="hero-name">Prabhu <span class="gradient-text">C</span></h1>
       <h2 class="hero-title">
         <span class="typed-wrapper">
-          <span class="typed" id="typed"></span><span class="cursor">|</span>
+          <span class="typed" id="typed"></span><span class="cursor-blink">|</span>
         </span>
       </h2>
       <p class="hero-desc">
-        Results-driven Backend Developer with 1+ year of hands-on experience building
-        scalable REST APIs and web applications using Node.js, Express.js, and PostgreSQL.
+        Backend Developer specializing in scalable REST APIs and healthcare IT systems.
+        Building production-grade software for US hospital radiology workflows at
+        <span class="accent-inline">Livemedica</span>.
       </p>
       <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary">Get in Touch</a>
-        <a href="#experience" class="btn btn-outline">View Work</a>
-        <a href="resume.html" target="_blank" class="btn btn-outline">&#x21E9; Resume</a>
+        <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Get in Touch</a>
+        <a href="#projects" class="btn btn-outline"><i class="fas fa-code-branch"></i> View Work</a>
+        <a href="resume.html" target="_blank" class="btn btn-ghost"><i class="fas fa-file-alt"></i> Resume</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="stat-num" data-target="1">0</span><span class="stat-plus">+</span>
+          <span class="stat-label">Year Exp</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num" data-target="15">0</span><span class="stat-plus">+</span>
+          <span class="stat-label">APIs Built</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num" data-target="30">0</span><span class="stat-plus">+</span>
+          <span class="stat-label">Bugs Resolved</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num" data-target="10">0</span><span class="stat-plus">+</span>
+          <span class="stat-label">Modules</span>
+        </div>
       </div>
       <div class="hero-socials">
-        <a href="mailto:prabujazz2020@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-        <a href="https://www.linkedin.com/in/prabhu-chelladurai" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="tel:+918939511571" aria-label="Phone"><i class="fas fa-phone"></i></a>
+        <a href="mailto:prabujazz2020@gmail.com" aria-label="Email" class="social-link">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/prabhu-chelladurai" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="tel:+918939511571" aria-label="Phone" class="social-link">
+          <i class="fas fa-phone"></i>
+        </a>
       </div>
     </div>
+
     <div class="hero-visual">
-      <div class="code-card">
-        <div class="code-card-header">
-          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-          <span class="file-name">server.js</span>
+      <div class="terminal-card">
+        <div class="terminal-header">
+          <span class="term-dot red"></span>
+          <span class="term-dot yellow"></span>
+          <span class="term-dot green"></span>
+          <span class="term-title">worklist.js</span>
+          <span class="term-lang">JavaScript</span>
         </div>
-        <pre class="code-body"><span class="kw">const</span> <span class="fn">express</span> = <span class="fn">require</span>(<span class="str">'express'</span>);
-<span class="kw">const</span> app = <span class="fn">express</span>();
-
-app.<span class="fn">get</span>(<span class="str">'/api/hello'</span>, (req, res) =&gt; &#123;
-  res.<span class="fn">json</span>(&#123;
-    developer: <span class="str">'Prabhu C'</span>,
-    role: <span class="str">'Backend Developer'</span>,
-    stack: [<span class="str">'Node.js'</span>, <span class="str">'Express'</span>,
-            <span class="str">'PostgreSQL'</span>],
-    status: <span class="str">'ready to build'</span>
-  &#125;);
-&#125;);
-
-app.<span class="fn">listen</span>(<span class="num">3000</span>);</pre>
+        <div class="terminal-body">
+          <div class="term-line"><span class="ln">1</span><span class="kw">const</span> <span class="fn">express</span> = <span class="fn2">require</span>(<span class="str">'express'</span>);</div>
+          <div class="term-line"><span class="ln">2</span><span class="kw">const</span> app = <span class="fn2">express</span>();</div>
+          <div class="term-line"><span class="ln">3</span></div>
+          <div class="term-line"><span class="ln">4</span><span class="cm">// Radiology Worklist API</span></div>
+          <div class="term-line"><span class="ln">5</span>app.<span class="fn">get</span>(<span class="str">'/api/worklist'</span>, <span class="kw">async</span> (req, res) =&gt; {</div>
+          <div class="term-line"><span class="ln">6</span>&nbsp;&nbsp;<span class="kw">const</span> studies = <span class="kw">await</span> db.<span class="fn">query</span>(</div>
+          <div class="term-line"><span class="ln">7</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">`SELECT * FROM studies</span></div>
+          <div class="term-line"><span class="ln">8</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">WHERE status = $1`</span>, [<span class="str">'PENDING'</span>]</div>
+          <div class="term-line"><span class="ln">9</span>&nbsp;&nbsp;);</div>
+          <div class="term-line"><span class="ln">10</span>&nbsp;&nbsp;res.<span class="fn">json</span>({ studies: studies.<span class="prop">rows</span> });</div>
+          <div class="term-line"><span class="ln">11</span>});</div>
+          <div class="term-line"><span class="ln">12</span></div>
+          <div class="term-line"><span class="ln">13</span>app.<span class="fn">listen</span>(<span class="num">3000</span>);</div>
+        </div>
+        <div class="terminal-footer">
+          <span class="tf-item"><i class="fas fa-circle tf-green"></i> Running :3000</span>
+          <span class="tf-item">Node v20.11</span>
+        </div>
       </div>
+      <div class="float-badge badge-1"><i class="fas fa-database"></i> PostgreSQL</div>
+      <div class="float-badge badge-2"><i class="fas fa-heartbeat"></i> HL7/FHIR</div>
+      <div class="float-badge badge-3"><i class="fas fa-check-circle"></i> Production</div>
     </div>
-    <a href="#about" class="scroll-hint" aria-label="Scroll down">
-      <i class="fas fa-chevron-down"></i>
+
+    <a href="#about" class="scroll-hint" aria-label="Scroll">
+      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
     </a>
   </section>
 
   <!-- ABOUT -->
   <section class="section" id="about">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header fade-in">
         <span class="section-tag">01 / About</span>
         <h2 class="section-title">Who I Am</h2>
       </div>
       <div class="about-grid">
-        <div class="about-text">
+        <div class="about-text fade-in">
           <p>
             I'm a <strong>Backend Developer</strong> based in Chennai, Tamil Nadu, passionate about
             building robust, scalable server-side applications. I specialize in crafting clean RESTful
@@ -100,38 +149,77 @@ app.<span class="fn">listen</span>(<span class="num">3000</span>);</pre>
             backend systems.
           </p>
           <p>
-            With experience at <strong>LMImaging (India) Private Limited</strong>, I've worked across
-            the full lifecycle of backend features — from schema design and API development to integration,
-            debugging, and performance tuning — always in close collaboration with frontend and QA teams.
+            At <strong>LMImaging (India) Private Limited — Livemedica</strong>, I build backend services
+            powering a <strong>RIS/PACS platform</strong> used by radiologists and radiology technologists
+            in US hospitals — from worklist management and order processing to HL7/FHIR system integrations.
           </p>
           <p>
-            I'm driven by clean code, strong fundamentals, and a desire to keep growing as an engineer.
+            I'm driven by clean code, strong fundamentals, and a desire to keep growing as an engineer
+            in the healthcare IT domain.
           </p>
           <div class="about-highlights">
             <div class="highlight-item">
-              <span class="highlight-number">1+</span>
+              <span class="highlight-number gradient-text">1+</span>
               <span class="highlight-label">Year of Experience</span>
             </div>
             <div class="highlight-item">
-              <span class="highlight-number">REST</span>
-              <span class="highlight-label">API Specialist</span>
+              <span class="highlight-number gradient-text">RIS</span>
+              <span class="highlight-label">PACS Platform</span>
             </div>
             <div class="highlight-item">
-              <span class="highlight-number">PG</span>
-              <span class="highlight-label">SQL Expert</span>
+              <span class="highlight-number gradient-text">US</span>
+              <span class="highlight-label">Hospital Clients</span>
             </div>
           </div>
         </div>
-        <div class="about-info">
-          <div class="info-card">
+        <div class="about-info fade-in">
+          <div class="info-card glass-card">
             <h3>Quick Info</h3>
             <ul class="info-list">
               <li><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu, India</li>
               <li><i class="fas fa-envelope"></i> prabujazz2020@gmail.com</li>
               <li><i class="fas fa-phone"></i> +91-8939511571</li>
-              <li><i class="fab fa-linkedin"></i> linkedin.com/in/prabhu-chelladurai</li>
-              <li><i class="fas fa-graduation-cap"></i> M.Sc. Computer Science & Technology</li>
+              <li><i class="fab fa-linkedin"></i> prabhu-chelladurai</li>
+              <li><i class="fas fa-graduation-cap"></i> M.Sc. Computer Science</li>
+              <li><i class="fas fa-hospital"></i> Healthcare IT — RIS/PACS</li>
             </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT I BUILD -->
+  <section class="section section-dark" id="services">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">02 / Services</span>
+        <h2 class="section-title">What I Build</h2>
+        <p class="section-sub">Core areas of backend expertise I bring to every project.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card glass-card fade-in" data-delay="0">
+          <div class="service-icon si-cyan"><i class="fas fa-server"></i></div>
+          <h3>REST API Development</h3>
+          <p>Design and build scalable RESTful APIs using Node.js and Express.js — from endpoint design to middleware, authentication, and structured error handling.</p>
+          <div class="service-tags">
+            <span>Node.js</span><span>Express.js</span><span>REST</span><span>Postman</span>
+          </div>
+        </div>
+        <div class="service-card glass-card fade-in" data-delay="100">
+          <div class="service-icon si-purple"><i class="fas fa-database"></i></div>
+          <h3>Database Architecture</h3>
+          <p>Design normalized PostgreSQL schemas, write optimized SQL queries, and manage complex clinical data relationships in production databases.</p>
+          <div class="service-tags">
+            <span>PostgreSQL</span><span>SQL</span><span>Schema Design</span><span>Optimization</span>
+          </div>
+        </div>
+        <div class="service-card glass-card fade-in" data-delay="200">
+          <div class="service-icon si-green"><i class="fas fa-hospital-alt"></i></div>
+          <h3>Healthcare IT Integration</h3>
+          <p>Integrate backend services with hospital systems using HL7/FHIR standards, enabling seamless data exchange across RIS, PACS, HIS, and EMR platforms.</p>
+          <div class="service-tags">
+            <span>HL7</span><span>FHIR</span><span>RIS/PACS</span><span>HIS/EMR</span>
           </div>
         </div>
       </div>
@@ -139,105 +227,122 @@ app.<span class="fn">listen</span>(<span class="num">3000</span>);</pre>
   </section>
 
   <!-- SKILLS -->
-  <section class="section section-dark" id="skills">
+  <section class="section" id="skills">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">02 / Skills</span>
+      <div class="section-header fade-in">
+        <span class="section-tag">03 / Skills</span>
         <h2 class="section-title">Technical Skills</h2>
       </div>
-      <div class="skills-grid">
-
-        <div class="skill-category" data-delay="0">
-          <div class="skill-icon"><i class="fas fa-code"></i></div>
-          <h3>Languages</h3>
-          <div class="skill-tags">
-            <span class="tag">JavaScript</span>
-            <span class="tag">SQL</span>
+      <div class="skills-wrapper">
+        <div class="skill-group fade-in">
+          <h4 class="skill-group-title"><i class="fas fa-code"></i> Languages</h4>
+          <div class="tech-pills">
+            <div class="tpill js"><i class="fab fa-js-square"></i> JavaScript</div>
+            <div class="tpill sql"><i class="fas fa-database"></i> SQL</div>
           </div>
         </div>
-
-        <div class="skill-category" data-delay="100">
-          <div class="skill-icon"><i class="fas fa-server"></i></div>
-          <h3>Backend</h3>
-          <div class="skill-tags">
-            <span class="tag">Node.js</span>
-            <span class="tag">Express.js</span>
-            <span class="tag">REST APIs</span>
+        <div class="skill-group fade-in">
+          <h4 class="skill-group-title"><i class="fas fa-server"></i> Backend</h4>
+          <div class="tech-pills">
+            <div class="tpill node"><i class="fab fa-node-js"></i> Node.js</div>
+            <div class="tpill express"><i class="fas fa-bolt"></i> Express.js</div>
+            <div class="tpill api"><i class="fas fa-plug"></i> REST APIs</div>
           </div>
         </div>
-
-        <div class="skill-category" data-delay="200">
-          <div class="skill-icon"><i class="fas fa-database"></i></div>
-          <h3>Database</h3>
-          <div class="skill-tags">
-            <span class="tag">PostgreSQL</span>
-            <span class="tag">Schema Design</span>
-            <span class="tag">CRUD</span>
+        <div class="skill-group fade-in">
+          <h4 class="skill-group-title"><i class="fas fa-database"></i> Database</h4>
+          <div class="tech-pills">
+            <div class="tpill pg"><i class="fas fa-database"></i> PostgreSQL</div>
+            <div class="tpill schema"><i class="fas fa-sitemap"></i> Schema Design</div>
+            <div class="tpill query"><i class="fas fa-tachometer-alt"></i> Query Optimization</div>
           </div>
         </div>
-
-        <div class="skill-category" data-delay="300">
-          <div class="skill-icon"><i class="fas fa-tools"></i></div>
-          <h3>Tools & Platforms</h3>
-          <div class="skill-tags">
-            <span class="tag">Git</span>
-            <span class="tag">GitHub</span>
-            <span class="tag">Postman</span>
+        <div class="skill-group fade-in">
+          <h4 class="skill-group-title"><i class="fas fa-tools"></i> Tools</h4>
+          <div class="tech-pills">
+            <div class="tpill git"><i class="fab fa-git-alt"></i> Git</div>
+            <div class="tpill github"><i class="fab fa-github"></i> GitHub</div>
+            <div class="tpill postman"><i class="fas fa-paper-plane"></i> Postman</div>
           </div>
         </div>
-
-        <div class="skill-category" data-delay="400">
-          <div class="skill-icon"><i class="fas fa-lightbulb"></i></div>
-          <h3>Concepts</h3>
-          <div class="skill-tags">
-            <span class="tag">CRUD Operations</span>
-            <span class="tag">API Integration</span>
-            <span class="tag">Debugging</span>
-            <span class="tag">Performance Optimization</span>
-            <span class="tag">Schema Design</span>
-            <span class="tag">Query Optimization</span>
+        <div class="skill-group fade-in">
+          <h4 class="skill-group-title"><i class="fas fa-hospital"></i> Healthcare IT</h4>
+          <div class="tech-pills">
+            <div class="tpill hl7"><i class="fas fa-heartbeat"></i> HL7</div>
+            <div class="tpill fhir"><i class="fas fa-fire-alt"></i> FHIR</div>
+            <div class="tpill ris"><i class="fas fa-x-ray"></i> RIS/PACS</div>
+            <div class="tpill emr"><i class="fas fa-file-medical"></i> HIS/EMR</div>
           </div>
         </div>
-
-        <div class="skill-category" data-delay="500">
-          <div class="skill-icon"><i class="fas fa-hospital"></i></div>
-          <h3>Healthcare IT</h3>
-          <div class="skill-tags">
-            <span class="tag">RIS/PACS</span>
-            <span class="tag">HL7/FHIR</span>
-            <span class="tag">HIS/EMR Integration</span>
-            <span class="tag">Clinical Workflows</span>
+        <div class="skill-group fade-in">
+          <h4 class="skill-group-title"><i class="fas fa-lightbulb"></i> Concepts</h4>
+          <div class="tech-pills">
+            <div class="tpill concept"><i class="fas fa-code-branch"></i> API Design</div>
+            <div class="tpill concept"><i class="fas fa-bug"></i> Debugging</div>
+            <div class="tpill concept"><i class="fas fa-shield-alt"></i> API Security</div>
+            <div class="tpill concept"><i class="fas fa-layer-group"></i> CRUD Operations</div>
           </div>
         </div>
-
       </div>
 
-      <!-- Skill bars -->
-      <div class="skill-bars">
-        <h3 class="bars-title">Proficiency</h3>
-        <div class="bar-item">
-          <div class="bar-label"><span>Node.js / Express.js</span><span>90%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-width="90"></div></div>
+      <!-- POSTMAN SHOWCASE -->
+      <div class="postman-showcase fade-in">
+        <div class="pm-label">
+          <i class="fas fa-paper-plane"></i>
+          <span>API Testing with Postman</span>
         </div>
-        <div class="bar-item">
-          <div class="bar-label"><span>JavaScript</span><span>85%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-width="85"></div></div>
-        </div>
-        <div class="bar-item">
-          <div class="bar-label"><span>PostgreSQL / SQL</span><span>82%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-width="82"></div></div>
-        </div>
-        <div class="bar-item">
-          <div class="bar-label"><span>REST API Design</span><span>88%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-width="88"></div></div>
-        </div>
-        <div class="bar-item">
-          <div class="bar-label"><span>HL7/FHIR Integration</span><span>72%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-width="72"></div></div>
-        </div>
-        <div class="bar-item">
-          <div class="bar-label"><span>Git / GitHub</span><span>78%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-width="78"></div></div>
+        <div class="postman-card">
+          <div class="pm-topbar">
+            <div class="pm-win-dots">
+              <span class="pm-dot red"></span>
+              <span class="pm-dot yellow"></span>
+              <span class="pm-dot green"></span>
+            </div>
+            <span class="pm-app-name"><i class="fas fa-paper-plane"></i> Postman</span>
+            <span class="pm-saved"><i class="fas fa-cloud"></i> Saved</span>
+          </div>
+          <div class="pm-url-bar">
+            <span class="pm-method get">GET</span>
+            <span class="pm-url-text">&#123;&#123;base_url&#125;&#125;/api/worklist?status=PENDING&amp;limit=20</span>
+            <button class="pm-send">Send</button>
+          </div>
+          <div class="pm-tabs">
+            <span class="pm-tab active">Params</span>
+            <span class="pm-tab">Authorization</span>
+            <span class="pm-tab">Headers <em>3</em></span>
+            <span class="pm-tab">Body</span>
+          </div>
+          <div class="pm-params">
+            <div class="pm-param-head"><span>KEY</span><span>VALUE</span><span>DESCRIPTION</span></div>
+            <div class="pm-param-row"><span class="pk">status</span><span class="pv">PENDING</span><span class="pd">Filter studies by status</span></div>
+            <div class="pm-param-row"><span class="pk">limit</span><span class="pv">20</span><span class="pd">Results per page</span></div>
+          </div>
+          <div class="pm-divider"></div>
+          <div class="pm-response">
+            <div class="pm-res-meta">
+              <span class="pm-status">200 OK</span>
+              <span class="pm-meta-item">Time: 142 ms</span>
+              <span class="pm-meta-item">Size: 1.24 KB</span>
+              <div class="pm-res-tabs">
+                <span class="pm-tab active">Pretty</span>
+                <span class="pm-tab">Raw</span>
+                <span class="pm-tab">Preview</span>
+              </div>
+            </div>
+<pre class="pm-json"><span class="pj-p">{</span>
+  <span class="pj-k">"status"</span><span class="pj-p">:</span> <span class="pj-s">"success"</span><span class="pj-p">,</span>
+  <span class="pj-k">"count"</span><span class="pj-p">:</span> <span class="pj-n">3</span><span class="pj-p">,</span>
+  <span class="pj-k">"studies"</span><span class="pj-p">:</span> <span class="pj-p">[</span>
+    <span class="pj-p">{</span>
+      <span class="pj-k">"id"</span><span class="pj-p">:</span>       <span class="pj-s">"ST-2024-001"</span><span class="pj-p">,</span>
+      <span class="pj-k">"patient"</span><span class="pj-p">:</span>  <span class="pj-s">"John D."</span><span class="pj-p">,</span>
+      <span class="pj-k">"modality"</span><span class="pj-p">:</span> <span class="pj-s">"CT"</span><span class="pj-p">,</span>
+      <span class="pj-k">"status"</span><span class="pj-p">:</span>   <span class="pj-s">"PENDING"</span><span class="pj-p">,</span>
+      <span class="pj-k">"priority"</span><span class="pj-p">:</span> <span class="pj-s">"STAT"</span>
+    <span class="pj-p">}</span>
+  <span class="pj-p">]</span>
+<span class="pj-p">}</span></pre>
+          </div>
         </div>
       </div>
 
@@ -245,54 +350,39 @@ app.<span class="fn">listen</span>(<span class="num">3000</span>);</pre>
   </section>
 
   <!-- EXPERIENCE -->
-  <section class="section" id="experience">
+  <section class="section section-dark" id="experience">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">03 / Experience</span>
+      <div class="section-header fade-in">
+        <span class="section-tag">04 / Experience</span>
         <h2 class="section-title">Professional Experience</h2>
       </div>
       <div class="timeline">
-        <div class="timeline-item">
+        <div class="timeline-item fade-in">
           <div class="timeline-dot"></div>
-          <div class="timeline-card">
+          <div class="timeline-card glass-card">
             <div class="timeline-header">
               <div>
-                <h3 class="timeline-role">Software Developer (Backend)</h3>
+                <h3 class="timeline-role">Software Developer <span class="role-tag">Backend</span></h3>
                 <p class="timeline-company"><i class="fas fa-building"></i> LMImaging (India) Private Limited — Livemedica</p>
-                <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu &nbsp;&middot;&nbsp; Healthcare IT (RIS/PACS Platform)</p>
+                <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu &nbsp;·&nbsp; <i class="fas fa-stethoscope"></i> Healthcare IT (RIS/PACS)</p>
               </div>
               <span class="timeline-badge">June 2025 – Present</span>
             </div>
             <ul class="timeline-bullets">
-              <li>
-                <i class="fas fa-circle-check"></i>
-                Developed and maintained <strong>15+ RESTful APIs</strong> using Node.js and Express.js to support core <strong>RIS/PACS workflows</strong> — radiology worklist management, order processing, and report generation — for US hospital clients.
-              </li>
-              <li>
-                <i class="fas fa-circle-check"></i>
-                Designed and optimized <strong>PostgreSQL schemas and complex SQL queries</strong> to handle clinical data including patient records, study metadata, and radiologist assignments across <strong>10+ production workflow modules</strong>.
-              </li>
-              <li>
-                <i class="fas fa-circle-check"></i>
-                Integrated backend services with <strong>third-party healthcare systems (HL7/FHIR standards)</strong> to enable seamless data exchange between RIS, PACS, and hospital HIS/EMR platforms.
-              </li>
-              <li>
-                <i class="fas fa-circle-check"></i>
-                Led bug investigation and feature development on a <strong>production healthcare IT product</strong> used by radiologists and radiology technologists in US hospitals, resolving <strong>30+ critical bugs</strong> within sprint cycles.
-              </li>
-              <li>
-                <i class="fas fa-circle-check"></i>
-                Validated <strong>20+ API endpoints</strong> using Postman and managed feature branches via Git/GitHub, enforcing version control and code review best practices across the team.
-              </li>
+              <li><i class="fas fa-circle-check"></i>Developed and maintained <strong>15+ RESTful APIs</strong> using Node.js and Express.js supporting core <strong>RIS/PACS workflows</strong> — radiology worklist management, order processing, and report generation for US hospital clients.</li>
+              <li><i class="fas fa-circle-check"></i>Designed and optimized <strong>PostgreSQL schemas and complex SQL queries</strong> to handle clinical data including patient records, study metadata, and radiologist assignments across <strong>10+ production modules</strong>.</li>
+              <li><i class="fas fa-circle-check"></i>Integrated backend services with <strong>third-party healthcare systems</strong> using <strong>HL7/FHIR standards</strong>, enabling seamless data exchange between RIS, PACS, and hospital HIS/EMR platforms.</li>
+              <li><i class="fas fa-circle-check"></i>Resolved <strong>30+ critical production bugs</strong> within sprint cycles on a healthcare IT product actively used by radiologists and radiology technologists across US hospitals.</li>
+              <li><i class="fas fa-circle-check"></i>Validated <strong>20+ API endpoints</strong> using Postman and managed feature branches via Git/GitHub following code review best practices.</li>
             </ul>
             <div class="timeline-tech">
-              <span class="tech-pill">Node.js</span>
-              <span class="tech-pill">Express.js</span>
-              <span class="tech-pill">PostgreSQL</span>
-              <span class="tech-pill">HL7/FHIR</span>
-              <span class="tech-pill">REST APIs</span>
-              <span class="tech-pill">Git</span>
-              <span class="tech-pill">Postman</span>
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">Express.js</span>
+              <span class="tech-tag">PostgreSQL</span>
+              <span class="tech-tag">HL7/FHIR</span>
+              <span class="tech-tag">REST APIs</span>
+              <span class="tech-tag">Git</span>
+              <span class="tech-tag">Postman</span>
             </div>
           </div>
         </div>
@@ -300,21 +390,71 @@ app.<span class="fn">listen</span>(<span class="num">3000</span>);</pre>
     </div>
   </section>
 
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">05 / Projects</span>
+        <h2 class="section-title">Featured Work</h2>
+        <p class="section-sub">Production software built at Livemedica powering US hospital radiology workflows.</p>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card glass-card fade-in" data-delay="0">
+          <div class="project-header">
+            <div class="project-icon pi-cyan"><i class="fas fa-list-alt"></i></div>
+            <span class="proj-badge">Professional</span>
+          </div>
+          <h3 class="project-title">Radiology Worklist API</h3>
+          <p class="project-desc">RESTful API for managing radiology study queues — supporting study filtering, status tracking, radiologist assignment, and priority-based ordering for US hospital workflows.</p>
+          <div class="project-tech">
+            <span>Node.js</span><span>Express.js</span><span>PostgreSQL</span><span>REST</span>
+          </div>
+        </div>
+
+        <div class="project-card glass-card fade-in" data-delay="120">
+          <div class="project-header">
+            <div class="project-icon pi-purple"><i class="fas fa-exchange-alt"></i></div>
+            <span class="proj-badge">Professional</span>
+          </div>
+          <h3 class="project-title">Patient Data Sync Service</h3>
+          <p class="project-desc">Backend integration service that parses HL7 messages and syncs patient demographics and orders between Hospital Information Systems and the RIS in real time.</p>
+          <div class="project-tech">
+            <span>Node.js</span><span>HL7/FHIR</span><span>PostgreSQL</span><span>HIS/EMR</span>
+          </div>
+        </div>
+
+        <div class="project-card glass-card fade-in" data-delay="240">
+          <div class="project-header">
+            <div class="project-icon pi-green"><i class="fas fa-file-medical-alt"></i></div>
+            <span class="proj-badge">Professional</span>
+          </div>
+          <h3 class="project-title">Radiology Report Service</h3>
+          <p class="project-desc">Microservice for generating, tracking, and distributing radiology reports — with status lifecycle management and audit logging for US hospital compliance standards.</p>
+          <div class="project-tech">
+            <span>Express.js</span><span>PostgreSQL</span><span>REST API</span><span>Git</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- EDUCATION -->
   <section class="section section-dark" id="education">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">04 / Education</span>
+      <div class="section-header fade-in">
+        <span class="section-tag">06 / Education</span>
         <h2 class="section-title">Education</h2>
       </div>
-      <div class="edu-card">
+      <div class="edu-card glass-card fade-in">
         <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
         <div class="edu-content">
           <h3>M.Sc. Computer Science & Technology</h3>
           <p class="edu-college"><i class="fas fa-university"></i> SRM Arts and Science College, Madras University, Chennai</p>
           <div class="edu-meta">
             <span><i class="fas fa-calendar-alt"></i> Graduated: 2023</span>
-            <span><i class="fas fa-star"></i> 72% &nbsp;|&nbsp; CGPA: 7.20 / 10</span>
+            <span><i class="fas fa-star"></i> CGPA: 7.20 / 10</span>
           </div>
         </div>
       </div>
@@ -324,31 +464,35 @@ app.<span class="fn">listen</span>(<span class="num">3000</span>);</pre>
   <!-- CONTACT -->
   <section class="section" id="contact">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">05 / Contact</span>
+      <div class="section-header fade-in">
+        <span class="section-tag">07 / Contact</span>
         <h2 class="section-title">Get In Touch</h2>
-        <p class="section-sub">I'm open to Backend Developer / Software Engineer roles. Feel free to reach out!</p>
+        <p class="section-sub">Open to Backend Developer / Software Engineer roles. Let's connect!</p>
       </div>
       <div class="contact-grid">
-        <div class="contact-card" onclick="window.location.href='mailto:prabujazz2020@gmail.com'">
-          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+        <a href="mailto:prabujazz2020@gmail.com" class="contact-card glass-card fade-in">
+          <div class="contact-icon-wrap ci-cyan"><i class="fas fa-envelope"></i></div>
           <h4>Email</h4>
           <p>prabujazz2020@gmail.com</p>
-        </div>
-        <div class="contact-card" onclick="window.location.href='tel:+918939511571'">
-          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <span class="contact-arrow"><i class="fas fa-arrow-right"></i></span>
+        </a>
+        <a href="tel:+918939511571" class="contact-card glass-card fade-in" data-delay="80">
+          <div class="contact-icon-wrap ci-purple"><i class="fas fa-phone"></i></div>
           <h4>Phone</h4>
           <p>+91-8939511571</p>
-        </div>
-        <div class="contact-card" onclick="window.open('https://www.linkedin.com/in/prabhu-chelladurai','_blank')">
-          <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+          <span class="contact-arrow"><i class="fas fa-arrow-right"></i></span>
+        </a>
+        <a href="https://www.linkedin.com/in/prabhu-chelladurai" target="_blank" rel="noopener" class="contact-card glass-card fade-in" data-delay="160">
+          <div class="contact-icon-wrap ci-blue"><i class="fab fa-linkedin"></i></div>
           <h4>LinkedIn</h4>
           <p>prabhu-chelladurai</p>
-        </div>
-        <div class="contact-card">
-          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <span class="contact-arrow"><i class="fas fa-arrow-right"></i></span>
+        </a>
+        <div class="contact-card glass-card fade-in" data-delay="240">
+          <div class="contact-icon-wrap ci-green"><i class="fas fa-map-marker-alt"></i></div>
           <h4>Location</h4>
           <p>Chennai, Tamil Nadu, India</p>
+          <span class="open-badge"><span class="open-dot"></span> Open to Remote</span>
         </div>
       </div>
     </div>
@@ -356,8 +500,15 @@ app.<span class="fn">listen</span>(<span class="num">3000</span>);</pre>
 
   <!-- FOOTER -->
   <footer class="footer">
-    <p>Designed & Built by <span class="accent">Prabhu C</span> &nbsp;·&nbsp; Backend Developer</p>
-    <p class="footer-sub">Node.js · Express.js · PostgreSQL · REST APIs</p>
+    <div class="footer-content">
+      <p class="footer-logo">&lt;Prabhu <span class="gradient-text">C</span> /&gt;</p>
+      <p class="footer-sub">Backend Developer · Healthcare IT · Node.js · PostgreSQL</p>
+      <div class="footer-socials">
+        <a href="mailto:prabujazz2020@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/prabhu-chelladurai" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <p class="footer-copy">Designed & Built by Prabhu C · 2026</p>
+    </div>
   </footer>
 
   <script src="script.js"></script>
