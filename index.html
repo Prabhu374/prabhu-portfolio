@@ -20,11 +20,11 @@
       <a class="logo" href="#hero">&lt;Prabhu /&gt;</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -189,11 +189,48 @@
     </div>
   </section>
 
-  <!-- WHAT I BUILD -->
-  <section class="section section-dark" id="services">
+  <!-- CONTACT -->
+  <section class="section section-dark" id="contact">
     <div class="container">
       <div class="section-header fade-in">
-        <span class="section-tag">02 / Services</span>
+        <span class="section-tag">02 / Contact</span>
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-sub">Open to Backend Developer / Software Engineer roles. Let's connect!</p>
+      </div>
+      <div class="contact-grid">
+        <a href="mailto:prabujazz2020@gmail.com" class="contact-card glass-card fade-in">
+          <div class="contact-icon-wrap ci-cyan"><i class="fas fa-envelope"></i></div>
+          <h4>Email</h4>
+          <p>prabujazz2020@gmail.com</p>
+          <span class="contact-arrow"><i class="fas fa-arrow-right"></i></span>
+        </a>
+        <a href="tel:+918939511571" class="contact-card glass-card fade-in" data-delay="80">
+          <div class="contact-icon-wrap ci-purple"><i class="fas fa-phone"></i></div>
+          <h4>Phone</h4>
+          <p>+91-8939511571</p>
+          <span class="contact-arrow"><i class="fas fa-arrow-right"></i></span>
+        </a>
+        <a href="https://www.linkedin.com/in/prabhu-chelladurai" target="_blank" rel="noopener" class="contact-card glass-card fade-in" data-delay="160">
+          <div class="contact-icon-wrap ci-blue"><i class="fab fa-linkedin"></i></div>
+          <h4>LinkedIn</h4>
+          <p>prabhu-chelladurai</p>
+          <span class="contact-arrow"><i class="fas fa-arrow-right"></i></span>
+        </a>
+        <div class="contact-card glass-card fade-in" data-delay="240">
+          <div class="contact-icon-wrap ci-green"><i class="fas fa-map-marker-alt"></i></div>
+          <h4>Location</h4>
+          <p>Chennai, Tamil Nadu, India</p>
+          <span class="open-badge"><span class="open-dot"></span> Open to Remote</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT I BUILD -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">03 / Services</span>
         <h2 class="section-title">What I Build</h2>
         <p class="section-sub">Core areas of backend expertise I bring to every project.</p>
       </div>
@@ -230,7 +267,7 @@
   <section class="section" id="skills">
     <div class="container">
       <div class="section-header fade-in">
-        <span class="section-tag">03 / Skills</span>
+        <span class="section-tag">04 / Skills</span>
         <h2 class="section-title">Technical Skills</h2>
       </div>
       <div class="skills-wrapper">
@@ -285,67 +322,6 @@
         </div>
       </div>
 
-      <!-- POSTMAN SHOWCASE -->
-      <div class="postman-showcase fade-in">
-        <div class="pm-label">
-          <i class="fas fa-paper-plane"></i>
-          <span>API Testing with Postman</span>
-        </div>
-        <div class="postman-card">
-          <div class="pm-topbar">
-            <div class="pm-win-dots">
-              <span class="pm-dot red"></span>
-              <span class="pm-dot yellow"></span>
-              <span class="pm-dot green"></span>
-            </div>
-            <span class="pm-app-name"><i class="fas fa-paper-plane"></i> Postman</span>
-            <span class="pm-saved"><i class="fas fa-cloud"></i> Saved</span>
-          </div>
-          <div class="pm-url-bar">
-            <span class="pm-method get">GET</span>
-            <span class="pm-url-text">&#123;&#123;base_url&#125;&#125;/api/worklist?status=PENDING&amp;limit=20</span>
-            <button class="pm-send">Send</button>
-          </div>
-          <div class="pm-tabs">
-            <span class="pm-tab active">Params</span>
-            <span class="pm-tab">Authorization</span>
-            <span class="pm-tab">Headers <em>3</em></span>
-            <span class="pm-tab">Body</span>
-          </div>
-          <div class="pm-params">
-            <div class="pm-param-head"><span>KEY</span><span>VALUE</span><span>DESCRIPTION</span></div>
-            <div class="pm-param-row"><span class="pk">status</span><span class="pv">PENDING</span><span class="pd">Filter studies by status</span></div>
-            <div class="pm-param-row"><span class="pk">limit</span><span class="pv">20</span><span class="pd">Results per page</span></div>
-          </div>
-          <div class="pm-divider"></div>
-          <div class="pm-response">
-            <div class="pm-res-meta">
-              <span class="pm-status">200 OK</span>
-              <span class="pm-meta-item">Time: 142 ms</span>
-              <span class="pm-meta-item">Size: 1.24 KB</span>
-              <div class="pm-res-tabs">
-                <span class="pm-tab active">Pretty</span>
-                <span class="pm-tab">Raw</span>
-                <span class="pm-tab">Preview</span>
-              </div>
-            </div>
-<pre class="pm-json"><span class="pj-p">{</span>
-  <span class="pj-k">"status"</span><span class="pj-p">:</span> <span class="pj-s">"success"</span><span class="pj-p">,</span>
-  <span class="pj-k">"count"</span><span class="pj-p">:</span> <span class="pj-n">3</span><span class="pj-p">,</span>
-  <span class="pj-k">"studies"</span><span class="pj-p">:</span> <span class="pj-p">[</span>
-    <span class="pj-p">{</span>
-      <span class="pj-k">"id"</span><span class="pj-p">:</span>       <span class="pj-s">"ST-2024-001"</span><span class="pj-p">,</span>
-      <span class="pj-k">"patient"</span><span class="pj-p">:</span>  <span class="pj-s">"John D."</span><span class="pj-p">,</span>
-      <span class="pj-k">"modality"</span><span class="pj-p">:</span> <span class="pj-s">"CT"</span><span class="pj-p">,</span>
-      <span class="pj-k">"status"</span><span class="pj-p">:</span>   <span class="pj-s">"PENDING"</span><span class="pj-p">,</span>
-      <span class="pj-k">"priority"</span><span class="pj-p">:</span> <span class="pj-s">"STAT"</span>
-    <span class="pj-p">}</span>
-  <span class="pj-p">]</span>
-<span class="pj-p">}</span></pre>
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
 
@@ -353,7 +329,7 @@
   <section class="section section-dark" id="experience">
     <div class="container">
       <div class="section-header fade-in">
-        <span class="section-tag">04 / Experience</span>
+        <span class="section-tag">05 / Experience</span>
         <h2 class="section-title">Professional Experience</h2>
       </div>
       <div class="timeline">
@@ -394,7 +370,7 @@
   <section class="section" id="projects">
     <div class="container">
       <div class="section-header fade-in">
-        <span class="section-tag">05 / Projects</span>
+        <span class="section-tag">06 / Projects</span>
         <h2 class="section-title">Featured Work</h2>
         <p class="section-sub">Production software built at Livemedica powering US hospital radiology workflows.</p>
       </div>
@@ -444,7 +420,7 @@
   <section class="section section-dark" id="education">
     <div class="container">
       <div class="section-header fade-in">
-        <span class="section-tag">06 / Education</span>
+        <span class="section-tag">07 / Education</span>
         <h2 class="section-title">Education</h2>
       </div>
       <div class="edu-card glass-card fade-in">
@@ -456,43 +432,6 @@
             <span><i class="fas fa-calendar-alt"></i> Graduated: 2023</span>
             <span><i class="fas fa-star"></i> CGPA: 7.20 / 10</span>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="section" id="contact">
-    <div class="container">
-      <div class="section-header fade-in">
-        <span class="section-tag">07 / Contact</span>
-        <h2 class="section-title">Get In Touch</h2>
-        <p class="section-sub">Open to Backend Developer / Software Engineer roles. Let's connect!</p>
-      </div>
-      <div class="contact-grid">
-        <a href="mailto:prabujazz2020@gmail.com" class="contact-card glass-card fade-in">
-          <div class="contact-icon-wrap ci-cyan"><i class="fas fa-envelope"></i></div>
-          <h4>Email</h4>
-          <p>prabujazz2020@gmail.com</p>
-          <span class="contact-arrow"><i class="fas fa-arrow-right"></i></span>
-        </a>
-        <a href="tel:+918939511571" class="contact-card glass-card fade-in" data-delay="80">
-          <div class="contact-icon-wrap ci-purple"><i class="fas fa-phone"></i></div>
-          <h4>Phone</h4>
-          <p>+91-8939511571</p>
-          <span class="contact-arrow"><i class="fas fa-arrow-right"></i></span>
-        </a>
-        <a href="https://www.linkedin.com/in/prabhu-chelladurai" target="_blank" rel="noopener" class="contact-card glass-card fade-in" data-delay="160">
-          <div class="contact-icon-wrap ci-blue"><i class="fab fa-linkedin"></i></div>
-          <h4>LinkedIn</h4>
-          <p>prabhu-chelladurai</p>
-          <span class="contact-arrow"><i class="fas fa-arrow-right"></i></span>
-        </a>
-        <div class="contact-card glass-card fade-in" data-delay="240">
-          <div class="contact-icon-wrap ci-green"><i class="fas fa-map-marker-alt"></i></div>
-          <h4>Location</h4>
-          <p>Chennai, Tamil Nadu, India</p>
-          <span class="open-badge"><span class="open-dot"></span> Open to Remote</span>
         </div>
       </div>
     </div>
