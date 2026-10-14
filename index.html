@@ -1,516 +1,1480 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Prabhu C | Backend Developer</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prabhu C | Backend Software Engineer</title>
+<meta name="description" content="Prabhu C is a backend software engineer in Bangalore who builds REST APIs and HL7/FHIR integrations with Node.js, Express.js and PostgreSQL.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@500;700&display=swap">
+<script>
+  (function () {
+    var d = document.documentElement;
+    d.classList.add('js');
+    try {
+      var t = localStorage.getItem('pc-theme');
+      if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+<style>
+/* ============ Tokens ============ */
+@property --ga { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
+
+:root {
+  --paper: #ffffff;
+  --ink: #000000;
+  --ink-2: #464c57;
+  --ink-3: #6b717d;
+  --line: #e2e5ea;
+  --nav: rgba(255, 255, 255, .74);
+  --ok: #17a34a;
+  --halo: 1;
+  --spectrum: #3d7bff, #19d3c5, #3ee07a, #e9e13b, #ff9f1c, #ff4d4d, #ff3da5, #8b5cff, #3d7bff;
+  --font: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --wrap: 1120px;
+  --mono: JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, Liberation Mono, monospace;
+  --accent: #4c84ff;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #000000; --ink: #ffffff; --ink-2: #b9bec8; --ink-3: #8d939e;
+    --line: #26292f; --nav: rgba(0, 0, 0, .66); --ok: #3ee07a; --halo: 1;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #000000; --ink: #ffffff; --ink-2: #b9bec8; --ink-3: #8d939e;
+  --line: #26292f; --nav: rgba(0, 0, 0, .66); --ok: #3ee07a; --halo: 1;
+  color-scheme: dark;
+}
+
+/* ============ Base ============ */
+*, *::before, *::after { box-sizing: inherit; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 84px);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color .4s ease, color .4s ease;
+}
+a { color: inherit; }
+/* Copy protection: page text can't be selected or copied; the ask box stays editable */
+body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+input, textarea { -webkit-user-select: text; user-select: text; -webkit-touch-callout: default; }
+button, input { font: inherit; color: inherit; }
+svg { display: block; }
+::selection { background: rgba(61, 123, 255, .25); }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.wrap { width: min(100% - 40px, var(--wrap)); margin-inline: auto; }
+@media (min-width: 720px) { .wrap { width: min(100% - 80px, var(--wrap)); } }
+
+/* ============ Fluid canvas ============ */
+#fluid { position: fixed; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; pointer-events: none; }
+.aura {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; display: none;
+  background:
+    radial-gradient(38vmax 38vmax at 18% 22%, rgba(62, 224, 122, .20), transparent 62%),
+    radial-gradient(34vmax 34vmax at 82% 26%, rgba(255, 159, 28, .18), transparent 62%),
+    radial-gradient(40vmax 40vmax at 62% 88%, rgba(255, 61, 165, .14), transparent 62%);
+}
+.no-fluid .aura { display: block; }
+.no-fluid #fluid { display: none; }
+main, .footer { position: relative; z-index: 1; }
+
+/* ============ RGB glow (hover anything) ============
+   ::before = blurred spectrum halo, ::after = surface + 1px ring.
+   The element itself stays transparent so nested glows work. */
+.glow {
+  --glow-surface: var(--paper);
+  --glow-line: var(--line);
+  --glow-blur: 18px;
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--r, 16px);
+  animation: ga-spin 3.6s linear infinite paused;
+}
+.glow::before,
+.glow::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.glow::before {
+  inset: -5px;
+  z-index: -2;
+  background: conic-gradient(from var(--ga), var(--spectrum));
+  filter: blur(var(--glow-blur)) saturate(1.35);
+  opacity: 0;
+  transform: scale(.9);
+  transition: opacity .4s ease, transform .5s cubic-bezier(.2, .8, .2, 1);
+}
+.glow::after {
+  --ring: linear-gradient(var(--glow-surface), var(--glow-surface)) padding-box,
+          conic-gradient(from var(--ga), var(--spectrum)) border-box;
+  inset: 0;
+  z-index: -1;
+  border: 1px solid transparent;
+  background: linear-gradient(var(--glow-surface), var(--glow-surface)) padding-box,
+              linear-gradient(var(--glow-line), var(--glow-line)) border-box;
+}
+
+/* ============ Nav ============ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
+  border-bottom: 1px solid transparent;
+  transition: background-color .3s ease, border-color .3s ease;
+}
+.nav.scrolled {
+  background: var(--nav);
+  -webkit-backdrop-filter: blur(16px) saturate(170%);
+  backdrop-filter: blur(16px) saturate(170%);
+  border-bottom-color: var(--line);
+}
+.nav-inner { display: flex; align-items: center; gap: 4px; height: 64px; }
+.brand, .nav-links a, .theme-btn { --r: 999px; --glow-surface: transparent; --glow-line: transparent; --glow-blur: 12px; }
+.brand {
+  margin-left: -14px; padding: 8px 14px;
+  font-size: 18px; font-weight: 800; font-stretch: 115%; letter-spacing: -.01em;
+  text-decoration: none;
+}
+.nav-links { display: none; margin-left: auto; gap: 2px; }
+.nav-links a {
+  padding: 8px 14px; font-size: 15px; font-weight: 500; color: var(--ink-2);
+  text-decoration: none; transition: color .2s ease;
+}
+.brand:hover, .nav-links a:hover, .theme-btn:hover,
+.brand:focus-visible, .nav-links a:focus-visible, .theme-btn:focus-visible { --glow-surface: var(--paper); color: var(--ink); }
+.theme-btn {
+  margin-left: auto; margin-right: -8px; width: 42px; height: 42px;
+  display: grid; place-items: center; border: 0; background: none; cursor: pointer; color: var(--ink);
+}
+@media (min-width: 880px) {
+  .nav-links { display: flex; }
+  .theme-btn { margin-left: 8px; }
+}
+.i-sun { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .i-sun { display: block; }
+  :root:not([data-theme="light"]) .i-moon { display: none; }
+}
+:root[data-theme="dark"] .i-sun { display: block; }
+:root[data-theme="dark"] .i-moon { display: none; }
+
+/* ============ Buttons ============ */
+.btn {
+  --r: 999px; --glow-blur: 14px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 13px 22px; border: 0; background: none; cursor: pointer;
+  font-size: 16px; font-weight: 600; line-height: 1.2; color: var(--ink);
+  text-decoration: none; white-space: nowrap;
+}
+.btn-sm { padding: 8px 15px; font-size: 14.5px; font-weight: 550; }
+.btn-solid { --glow-surface: var(--ink); --glow-line: var(--ink); color: var(--paper); }
+
+/* ============ Hero ============ */
+.hero {
+  min-height: 100vh; min-height: 100svh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 104px 0 64px;
+}
+.hero-hi { margin: 0 0 18px; font-size: clamp(18px, 1.8vw, 22px); font-weight: 500; color: var(--ink-2); }
+.hero-title {
+  margin: 0;
+  font-size: clamp(44px, 7.4vw, 120px);
+  font-weight: 900;
+  font-stretch: 125%;
+  line-height: .95;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+.hero-lede {
+  margin: 26px auto 0; max-width: 56ch;
+  font-size: clamp(17px, 1.5vw, 20px); line-height: 1.55; color: var(--ink-2);
+  text-wrap: pretty;
+}
+.hero-tools { width: min(100%, 620px); margin-top: 38px; }
+.ask {
+  --r: 999px; --glow-line: var(--ink); --glow-blur: 20px;
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 7px 7px 24px;
+}
+.ask input {
+  flex: 1; min-width: 0; border: 0; outline: 0; background: transparent;
+  padding: 10px 0; font-size: 17px; color: var(--ink);
+}
+.ask input::placeholder { color: var(--ink-3); opacity: 1; }
+.ask-send {
+  flex: none; width: 46px; height: 46px; border: 0; border-radius: 50%;
+  display: grid; place-items: center; cursor: pointer;
+  background: var(--ink); color: var(--paper);
+  transition: transform .2s ease;
+}
+.ask-send:active { transform: scale(.92); }
+.ask-send:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.suggest { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
+.suggest button {
+  --r: 999px; --glow-blur: 12px;
+  padding: 9px 16px; border: 0; background: none; cursor: pointer;
+  font-size: 15px; font-weight: 500; color: var(--ink-2); transition: color .2s ease;
+}
+.suggest button:hover { color: var(--ink); }
+.answer { --r: 22px; --glow-blur: 24px; margin-top: 18px; padding: 18px 22px 20px; text-align: left; }
+.answer[hidden] { display: none; }
+.answer-q { margin: 0; font-size: 14px; color: var(--ink-3); }
+.answer-text { margin: 6px 0 0; font-size: 17px; line-height: 1.6; min-height: 1.6em; }
+.answer-text.typing::after {
+  content: ""; display: inline-block; width: 2px; height: 1.05em; margin-left: 2px;
+  vertical-align: -.15em; background: var(--ink); animation: caret .8s steps(1) infinite;
+}
+@keyframes caret { 50% { opacity: 0; } }
+.answer-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.answer-actions:empty { display: none; }
+.status { margin: 34px 0 0; display: inline-flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2); }
+.status i {
+  flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--ok);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 20%, transparent);
+}
+
+/* The one orchestrated moment: headline stretches open as the fluid draws its first swirl */
+.js .hero-title { animation: title-in 1.5s cubic-bezier(.16, 1, .3, 1) .1s backwards; }
+.js .fade { animation: fade-in .9s ease backwards; }
+.js .hero-hi { animation-delay: 0s; }
+.js .hero-lede { animation-delay: .5s; }
+.js .hero-tools { animation-delay: .65s; }
+.js .status { animation-delay: .8s; }
+@keyframes title-in {
+  from { font-stretch: 62%; opacity: 0; }
+  30% { opacity: 1; }
+}
+@keyframes fade-in { from { opacity: 0; } }
+
+/* ============ Sections ============ */
+.section { padding-top: clamp(88px, 10vw, 144px); }
+.section-head { max-width: 960px; margin-bottom: clamp(36px, 5vw, 56px); }
+.h2 {
+  margin: 0;
+  font-size: clamp(32px, 4.2vw, 56px); line-height: 1.04;
+  font-weight: 800; font-stretch: 112%; letter-spacing: -.02em;
+  text-wrap: balance;
+}
+.section-head p { margin: 22px 0 0; max-width: 62ch; font-size: clamp(17px, 1.4vw, 19px); color: var(--ink-2); }
+
+/* ---- Order path ---- */
+.trace-wrap { position: relative; }
+.trace { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.step { --r: 20px; --glow-blur: 24px; padding: 22px 22px 26px; cursor: default; }
+.marker {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1.5px solid var(--ink); background: var(--paper);
+  font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums;
+  transition: background-color .35s ease, color .35s ease;
+}
+.step.passed .marker { background: var(--ink); color: var(--paper); }
+.step h3 { margin: 20px 0 8px; font-size: 21px; line-height: 1.25; font-weight: 750; font-stretch: 108%; letter-spacing: -.01em; }
+.step p { margin: 0; font-size: 15.5px; line-height: 1.55; color: var(--ink-2); }
+@media (min-width: 900px) {
+  .trace { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .trace-wrap::before {
+    content: ""; position: absolute; top: 43px; height: 2px;
+    left: 44px; right: calc((100% - 48px) / 4 - 44px);
+    background: var(--ink);
+  }
+}
+.evidence { display: grid; gap: 22px; margin-top: 44px; }
+@media (min-width: 900px) { .evidence { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; } }
+.evidence p { margin: 0; padding-left: 18px; border-left: 2px solid var(--ink); font-size: 16px; line-height: 1.55; color: var(--ink-2); max-width: 38ch; }
+.evidence strong { color: var(--ink); font-weight: 750; }
+
+/* ---- Experience rows ---- */
+.rows { display: grid; gap: 12px; }
+.row { --r: 18px; --glow-blur: 24px; }
+.row summary {
+  position: relative; list-style: none; cursor: pointer;
+  display: grid; gap: 4px 28px; align-items: baseline;
+  padding: 22px 64px 22px 24px; border-radius: inherit;
+}
+.row summary::-webkit-details-marker { display: none; }
+.row summary::marker { content: ""; }
+.row summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.row-when { font-size: 15px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.row-what b { display: block; font-size: 20px; line-height: 1.3; font-weight: 700; font-stretch: 108%; letter-spacing: -.01em; }
+.row-what span, .row-where span { display: block; }
+.row-what span { margin-top: 2px; font-size: 15.5px; color: var(--ink-2); }
+.row-where { font-size: 15px; color: var(--ink-2); }
+.row-toggle { position: absolute; right: 24px; top: 28px; width: 22px; height: 22px; }
+.row-toggle::before, .row-toggle::after {
+  content: ""; position: absolute; left: 3px; right: 3px; top: 50%; height: 2px; margin-top: -1px;
+  border-radius: 2px; background: var(--ink); transition: transform .3s ease;
+}
+.row-toggle::after { transform: rotate(90deg); }
+.row[open] .row-toggle::after { transform: rotate(0deg); }
+.row-body { padding: 0 24px 26px; }
+.row[open] .row-body { animation: body-in .35s ease; }
+@keyframes body-in { from { opacity: 0; transform: translateY(-6px); } }
+.row-body ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; max-width: 72ch; }
+.row-body li, .project-copy li { position: relative; padding-left: 20px; color: var(--ink-2); }
+.row-body li::before, .project-copy li::before {
+  content: ""; position: absolute; left: 0; top: .78em; width: 8px; height: 2px; background: var(--ink);
+}
+.row-body strong { color: var(--ink); font-weight: 650; }
+.row-body > p { margin: 0; color: var(--ink-2); }
+.row-note { margin: 18px 0 0 !important; font-size: 15px; color: var(--ink-3) !important; }
+@media (min-width: 820px) {
+  .row summary { grid-template-columns: 170px minmax(0, 1.5fr) minmax(0, 1fr); }
+  .row-toggle { top: 50%; margin-top: -11px; }
+  .row-body { padding-left: calc(24px + 170px + 28px); padding-right: 64px; }
+}
+
+/* ---- Skills ---- */
+.skills { margin: 0; }
+.skill-row { display: grid; gap: 12px; padding: 22px 0; border-top: 1px solid var(--line); }
+.skill-row:last-child { border-bottom: 1px solid var(--line); }
+.skill-row dt { font-size: 17px; font-weight: 650; font-stretch: 108%; }
+.skill-row dd { margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { --r: 999px; --glow-blur: 12px; display: inline-block; padding: 7px 14px; font-size: 15px; font-weight: 500; }
+@media (min-width: 820px) {
+  .skill-row { grid-template-columns: 240px minmax(0, 1fr); gap: 24px; align-items: center; }
+}
+
+/* ---- Project ---- */
+.project { display: grid; gap: 44px; align-items: center; }
+.project h3 { margin: 0 0 14px; font-size: clamp(26px, 3vw, 38px); line-height: 1.08; font-weight: 800; font-stretch: 112%; letter-spacing: -.02em; }
+.project-copy > p { margin: 0; max-width: 54ch; color: var(--ink-2); }
+.project-copy ul { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.project-copy .project-stack { margin-top: 22px; font-size: 15px; color: var(--ink-3); }
+.arch { display: grid; }
+.layer { --r: 12px; --glow-blur: 14px; padding: 13px 16px; text-align: center; font-size: 15px; font-weight: 600; }
+.layer small { display: block; margin-top: 2px; font-size: 12.5px; font-weight: 500; color: var(--ink-3); }
+.layer-solid { --glow-surface: var(--ink); --glow-line: var(--ink); color: var(--paper); }
+.link { justify-self: center; width: 2px; height: 16px; background: var(--ink); }
+.mods { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (min-width: 560px) { .mods { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 960px) { .project { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; } }
+
+/* ---- Contact ---- */
+.contact { text-align: center; padding-bottom: clamp(96px, 12vw, 160px); }
+.contact-title {
+  margin: 0 auto; max-width: 13ch;
+  font-size: clamp(44px, 7.4vw, 120px); line-height: .95;
+  font-weight: 900; font-stretch: 125%; letter-spacing: -.02em;
+  text-wrap: balance;
+}
+.contact-lede { margin: 26px auto 0; max-width: 46ch; font-size: clamp(17px, 1.5vw, 20px); color: var(--ink-2); }
+.contact-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 36px; }
+.contact-meta { margin: 30px 0 0; font-size: 15px; color: var(--ink-3); }
+
+/* ---- Footer ---- */
+.footer { border-top: 1px solid var(--line); padding: 60px 0 52px; }
+.footer-inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.foot-brand {
+  --r: 999px; --glow-surface: transparent; --glow-line: transparent; --glow-blur: 12px;
+  display: inline-block; padding: 6px 16px;
+  font-family: var(--mono); font-size: 21px; font-weight: 700; letter-spacing: -.01em;
+  color: var(--ink); text-decoration: none;
+}
+.foot-brand:hover, .foot-brand:focus-visible { --glow-surface: var(--paper); }
+.foot-brand b { font-weight: 700; color: var(--accent); }
+.foot-tag { margin: 12px 0 0; font-size: 15.5px; color: var(--ink-2); text-wrap: balance; }
+.foot-icons { display: flex; gap: 12px; margin-top: 26px; }
+.icon-link { --r: 10px; --glow-blur: 12px; width: 42px; height: 42px; display: grid; place-items: center; color: var(--ink-2); transition: color .2s ease; }
+.icon-link:hover, .icon-link:focus-visible { color: var(--ink); }
+.foot-credit { margin: 28px 0 0; font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: .03em; color: var(--ink-3); }
+
+/* ============ Glow states (kept last so they win) ============ */
+.glow.lit, .glow:active, .glow:focus-visible, .ask:focus-within { z-index: 2; animation-play-state: running; }
+.glow:focus-visible { outline: none; }
+.glow.lit::before, .glow:active::before, .glow:focus-visible::before, .ask:focus-within::before { opacity: var(--halo); transform: none; }
+.glow.lit::after, .glow:active::after, .glow:focus-visible::after, .ask:focus-within::after { background: var(--ring); }
+@media (hover: hover) {
+  .glow:hover { z-index: 2; animation-play-state: running; }
+  .glow:hover::before { opacity: var(--halo); transform: none; }
+  .glow:hover::after { background: var(--ring); }
+}
+@keyframes ga-spin { to { --ga: 360deg; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .glow { animation: none; }
+  .glow::before { transform: none; transition: opacity .2s ease; }
+  .js .hero-title, .js .fade, .row[open] .row-body { animation: none; }
+  .answer-text.typing::after { animation: none; }
+}
+</style>
 </head>
 <body>
+<canvas id="fluid" aria-hidden="true"></canvas>
+<div class="aura" aria-hidden="true"></div>
 
-  <div class="cursor-ring" id="cursorRing"></div>
-  <div class="cursor-dot" id="cursorDot"></div>
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand glow" href="#top">Prabhu C</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a class="glow" href="#work">Work</a>
+      <a class="glow" href="#experience">Experience</a>
+      <a class="glow" href="#skills">Skills</a>
+      <a class="glow" href="#project">Project</a>
+      <a class="glow" href="#contact">Contact</a>
+    </nav>
+    <button class="theme-btn glow" id="theme" type="button" aria-label="Switch theme">
+      <svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+</header>
 
-  <!-- NAV -->
-  <nav class="navbar" id="navbar">
-    <div class="progress-bar" id="progressBar"></div>
-    <div class="nav-container">
-      <a class="logo" href="#hero">&lt;Prabhu /&gt;</a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
+<main id="top">
+  <!-- ============ Hero ============ -->
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <p class="hero-hi fade">Hi, I'm Prabhu <span aria-hidden="true">👋</span></p>
+    <h1 class="hero-title" id="hero-title">Backend engineer</h1>
+    <p class="hero-lede fade">I build REST APIs and HL7/FHIR integrations that connect hospital systems. Most recently, a year of Node.js and PostgreSQL work on a US radiology (RIS/PACS) platform.</p>
 
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <canvas class="particle-canvas" id="particleCanvas"></canvas>
-    <div class="hero-bg">
-      <div class="grid-overlay"></div>
-      <div class="glow glow-1"></div>
-      <div class="glow glow-2"></div>
-      <div class="glow glow-3"></div>
-    </div>
-
-    <div class="hero-content">
-      <p class="hero-eyebrow"><span class="status-dot"></span> Available for opportunities</p>
-      <h1 class="hero-name">Prabhu <span class="gradient-text">C</span></h1>
-      <h2 class="hero-title">
-        <span class="typed-wrapper">
-          <span class="typed" id="typed"></span><span class="cursor-blink">|</span>
-        </span>
-      </h2>
-      <p class="hero-desc">
-        Backend Developer specializing in scalable REST APIs and healthcare IT systems.
-        Building production-grade software for US hospital radiology workflows at
-        <span class="accent-inline">Livemedica</span>.
-      </p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Get in Touch</a>
-        <a href="#projects" class="btn btn-outline"><i class="fas fa-code-branch"></i> View Work</a>
-        <a href="resume.html" target="_blank" class="btn btn-ghost"><i class="fas fa-file-alt"></i> Resume</a>
+    <div class="hero-tools fade">
+      <div class="ask glow">
+        <label class="sr-only" for="ask-input">Ask a question about Prabhu's work</label>
+        <input id="ask-input" type="text" placeholder="Ask me anything…" autocomplete="off" enterkeyhint="send" maxlength="160">
+        <button class="ask-send" id="ask-send" type="button" aria-label="Send question">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        </button>
       </div>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <span class="stat-num" data-target="1">0</span><span class="stat-plus">+</span>
-          <span class="stat-label">Year Exp</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="hero-stat">
-          <span class="stat-num" data-target="15">0</span><span class="stat-plus">+</span>
-          <span class="stat-label">APIs Built</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="hero-stat">
-          <span class="stat-num" data-target="30">0</span><span class="stat-plus">+</span>
-          <span class="stat-label">Bugs Resolved</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="hero-stat">
-          <span class="stat-num" data-target="10">0</span><span class="stat-plus">+</span>
-          <span class="stat-label">Modules</span>
-        </div>
+      <div class="suggest" role="group" aria-label="Suggested questions">
+        <button class="glow" type="button" data-intent="me">About me</button>
+        <button class="glow" type="button" data-intent="exp">Experience</button>
+        <button class="glow" type="button" data-intent="skills">Skills</button>
+        <button class="glow" type="button" data-intent="hl7">HL7/FHIR work</button>
+        <button class="glow" type="button" data-intent="contact">Contact</button>
       </div>
-      <div class="hero-socials">
-        <a href="mailto:prabujazz2020@gmail.com" aria-label="Email" class="social-link">
-          <i class="fas fa-envelope"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/prabhu-chelladurai" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="tel:+918939511571" aria-label="Phone" class="social-link">
-          <i class="fas fa-phone"></i>
-        </a>
+      <div class="answer glow" id="answer" hidden>
+        <p class="answer-q" id="answer-q"></p>
+        <p class="answer-text" id="answer-text" aria-hidden="true"></p>
+        <p class="sr-only" id="answer-live" aria-live="polite"></p>
+        <div class="answer-actions" id="answer-actions"></div>
       </div>
     </div>
 
-    <div class="hero-visual">
-      <div class="terminal-card">
-        <div class="terminal-header">
-          <span class="term-dot red"></span>
-          <span class="term-dot yellow"></span>
-          <span class="term-dot green"></span>
-          <span class="term-title">worklist.js</span>
-          <span class="term-lang">JavaScript</span>
-        </div>
-        <div class="terminal-body">
-          <div class="term-line"><span class="ln">1</span><span class="kw">const</span> <span class="fn">express</span> = <span class="fn2">require</span>(<span class="str">'express'</span>);</div>
-          <div class="term-line"><span class="ln">2</span><span class="kw">const</span> app = <span class="fn2">express</span>();</div>
-          <div class="term-line"><span class="ln">3</span></div>
-          <div class="term-line"><span class="ln">4</span><span class="cm">// Radiology Worklist API</span></div>
-          <div class="term-line"><span class="ln">5</span>app.<span class="fn">get</span>(<span class="str">'/api/worklist'</span>, <span class="kw">async</span> (req, res) =&gt; {</div>
-          <div class="term-line"><span class="ln">6</span>&nbsp;&nbsp;<span class="kw">const</span> studies = <span class="kw">await</span> db.<span class="fn">query</span>(</div>
-          <div class="term-line"><span class="ln">7</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">`SELECT * FROM studies</span></div>
-          <div class="term-line"><span class="ln">8</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">WHERE status = $1`</span>, [<span class="str">'PENDING'</span>]</div>
-          <div class="term-line"><span class="ln">9</span>&nbsp;&nbsp;);</div>
-          <div class="term-line"><span class="ln">10</span>&nbsp;&nbsp;res.<span class="fn">json</span>({ studies: studies.<span class="prop">rows</span> });</div>
-          <div class="term-line"><span class="ln">11</span>});</div>
-          <div class="term-line"><span class="ln">12</span></div>
-          <div class="term-line"><span class="ln">13</span>app.<span class="fn">listen</span>(<span class="num">3000</span>);</div>
-        </div>
-        <div class="terminal-footer">
-          <span class="tf-item"><i class="fas fa-circle tf-green"></i> Running :3000</span>
-          <span class="tf-item">Node v20.11</span>
-        </div>
-      </div>
-      <div class="float-badge badge-1"><i class="fas fa-database"></i> PostgreSQL</div>
-      <div class="float-badge badge-2"><i class="fas fa-heartbeat"></i> HL7/FHIR</div>
-      <div class="float-badge badge-3"><i class="fas fa-check-circle"></i> Production</div>
-    </div>
-
-    <a href="#about" class="scroll-hint" aria-label="Scroll">
-      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
-    </a>
+    <p class="status fade"><i aria-hidden="true"></i>Based in Bangalore. Open to backend and integration roles.</p>
   </section>
 
-  <!-- ABOUT -->
-  <section class="section" id="about">
-    <div class="container">
-      <div class="section-header fade-in">
-        <span class="section-tag">01 / About</span>
-        <h2 class="section-title">Who I Am</h2>
+  <!-- ============ Work ============ -->
+  <section class="section" id="work" aria-labelledby="work-title">
+    <div class="wrap">
+      <header class="section-head">
+        <h2 class="h2" id="work-title">I build the APIs between hospital systems.</h2>
+        <p>At LMImaging (Livemedica) I shipped 15+ REST APIs and owned HL7/FHIR integration modules for a radiology platform serving US hospital clients. This is the path one radiology order takes, and the parts I built along the way.</p>
+      </header>
+
+      <div class="trace-wrap">
+        <ol class="trace" id="trace">
+          <li class="step glow" tabindex="0">
+            <span class="marker">1</span>
+            <h3>The order arrives</h3>
+            <p>The hospital's HIS/EMR sends a radiology order over HL7/FHIR. My order-processing APIs and integration services bring it into the RIS.</p>
+          </li>
+          <li class="step glow" tabindex="0">
+            <span class="marker">2</span>
+            <h3>It joins the worklist</h3>
+            <p>Worklist management APIs place the exam on the radiology worklist and keep it current.</p>
+          </li>
+          <li class="step glow" tabindex="0">
+            <span class="marker">3</span>
+            <h3>Images are stored</h3>
+            <p>The study is stored in PACS, and real-time data exchange keeps RIS and PACS in step.</p>
+          </li>
+          <li class="step glow" tabindex="0">
+            <span class="marker">4</span>
+            <h3>The report goes back</h3>
+            <p>Report generation APIs produce the radiology report, which flows back to the hospital's EMR.</p>
+          </li>
+        </ol>
       </div>
-      <div class="about-grid">
-        <div class="about-text fade-in">
-          <p>
-            I'm a <strong>Backend Developer</strong> based in Chennai, Tamil Nadu, passionate about
-            building robust, scalable server-side applications. I specialize in crafting clean RESTful
-            APIs, designing efficient database schemas, and turning complex requirements into reliable
-            backend systems.
-          </p>
-          <p>
-            At <strong>LMImaging (India) Private Limited — Livemedica</strong>, I build backend services
-            powering a <strong>RIS/PACS platform</strong> used by radiologists and radiology technologists
-            in US hospitals — from worklist management and order processing to HL7/FHIR system integrations.
-          </p>
-          <p>
-            I'm driven by clean code, strong fundamentals, and a desire to keep growing as an engineer
-            in the healthcare IT domain.
-          </p>
-          <div class="about-highlights">
-            <div class="highlight-item">
-              <span class="highlight-number gradient-text">1+</span>
-              <span class="highlight-label">Year of Experience</span>
-            </div>
-            <div class="highlight-item">
-              <span class="highlight-number gradient-text">RIS</span>
-              <span class="highlight-label">PACS Platform</span>
-            </div>
-            <div class="highlight-item">
-              <span class="highlight-number gradient-text">US</span>
-              <span class="highlight-label">Hospital Clients</span>
-            </div>
+
+      <div class="evidence">
+        <p><strong>~25% faster</strong> workflow processing across the worklist, order and report APIs.</p>
+        <p><strong>~40% less</strong> manual reconciliation after connecting RIS, PACS and HIS/EMR over HL7/FHIR.</p>
+        <p><strong>~30% better</strong> query efficiency from tuning PostgreSQL across 10+ production modules.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Experience ============ -->
+  <section class="section" id="experience" aria-labelledby="exp-title">
+    <div class="wrap">
+      <header class="section-head">
+        <h2 class="h2" id="exp-title">Experience and education</h2>
+      </header>
+
+      <div class="rows">
+        <details class="row glow" open>
+          <summary>
+            <span class="row-when">Jun 2025 – Jul 2026</span>
+            <span class="row-what"><b>Software Developer (Backend)</b><span>LMImaging (India) Pvt. Ltd. (Livemedica)</span></span>
+            <span class="row-where"><span>Chennai</span><span>Healthcare IT, RIS/PACS</span></span>
+            <span class="row-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
+            <ul>
+              <li>Shipped <strong>15+ RESTful APIs</strong> for core RIS/PACS workflows (worklist management, order processing and report generation) for US hospital clients, cutting workflow processing time by <strong>~25%</strong>.</li>
+              <li>Connected backend services to hospital HIS/EMR platforms over <strong>HL7/FHIR</strong> for real-time data exchange between RIS, PACS and EMR, removing close to <strong>40%</strong> of manual reconciliation work.</li>
+              <li>Owned and tuned complex PostgreSQL queries, functions and stored procedures across <strong>10+ production modules</strong>, improving query efficiency by about <strong>30%</strong>.</li>
+              <li>Diagnosed and closed <strong>30+ production issues</strong> through systematic debugging and root-cause analysis, and informally guided newer teammates on how to debug.</li>
+              <li>Ran code-review cycles and Git/GitHub feature branches that reduced integration issues by nearly <strong>35%</strong>, and validated <strong>20+ endpoints</strong> in Postman.</li>
+              <li>Scoped and prioritized requirements with cross-functional teams in Agile sprints.</li>
+              <li>Grew from individual feature tickets to owning full integration modules end to end, and became the go-to contact for HL7/FHIR interface issues.</li>
+            </ul>
+            <p class="row-note">Stack: Node.js, Express.js, PostgreSQL, HL7/FHIR, Git, GitHub and Postman.</p>
           </div>
-        </div>
-        <div class="about-info fade-in">
-          <div class="info-card glass-card">
-            <h3>Quick Info</h3>
-            <ul class="info-list">
-              <li><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu, India</li>
-              <li><i class="fas fa-envelope"></i> prabujazz2020@gmail.com</li>
-              <li><i class="fas fa-phone"></i> +91-8939511571</li>
-              <li><i class="fab fa-linkedin"></i> prabhu-chelladurai</li>
-              <li><i class="fas fa-graduation-cap"></i> M.Sc. Computer Science</li>
-              <li><i class="fas fa-hospital"></i> Healthcare IT — RIS/PACS</li>
+        </details>
+
+        <details class="row glow">
+          <summary>
+            <span class="row-when">Jun 2024 – Jun 2025</span>
+            <span class="row-what"><b>AR Caller, Denials Management</b><span>AGS Health</span></span>
+            <span class="row-where"><span>US healthcare revenue cycle management</span></span>
+            <span class="row-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
+            <ul>
+              <li>Made high-volume outbound calls to US insurance payers, through IVR and live agents, to follow up on denied and unpaid claims.</li>
+              <li>Analyzed denial reasons from EOBs and payer portals (eligibility, prior authorization, coding, timely filing) and drove claims to resolution through corrections, reprocessing requests and appeals.</li>
+              <li>Logged call outcomes and next steps in the billing system against daily productivity and QA targets, under HIPAA.</li>
             </ul>
           </div>
-        </div>
+        </details>
+
+        <details class="row glow">
+          <summary>
+            <span class="row-when">2023</span>
+            <span class="row-what"><b>M.Sc. Computer Science &amp; Technology</b><span>SRM Arts and Science College, University of Madras</span></span>
+            <span class="row-where"><span>Chennai</span></span>
+            <span class="row-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
+            <p>Graduated in 2023 with 72% (CGPA 7.20 / 10).</p>
+          </div>
+        </details>
       </div>
     </div>
   </section>
 
-  <!-- WHAT I BUILD -->
-  <section class="section section-dark" id="services">
-    <div class="container">
-      <div class="section-header fade-in">
-        <span class="section-tag">02 / Services</span>
-        <h2 class="section-title">What I Build</h2>
-        <p class="section-sub">Core areas of backend expertise I bring to every project.</p>
-      </div>
-      <div class="services-grid">
-        <div class="service-card glass-card fade-in" data-delay="0">
-          <div class="service-icon si-cyan"><i class="fas fa-server"></i></div>
-          <h3>REST API Development</h3>
-          <p>Design and build scalable RESTful APIs using Node.js and Express.js — from endpoint design to middleware, authentication, and structured error handling.</p>
-          <div class="service-tags">
-            <span>Node.js</span><span>Express.js</span><span>REST</span><span>Postman</span>
-          </div>
+  <!-- ============ Skills ============ -->
+  <section class="section" id="skills" aria-labelledby="skills-title">
+    <div class="wrap">
+      <header class="section-head">
+        <h2 class="h2" id="skills-title">Skills</h2>
+      </header>
+      <dl class="skills">
+        <div class="skill-row">
+          <dt>Languages</dt>
+          <dd><span class="chip glow">JavaScript (ES6+)</span><span class="chip glow">SQL</span></dd>
         </div>
-        <div class="service-card glass-card fade-in" data-delay="100">
-          <div class="service-icon si-purple"><i class="fas fa-database"></i></div>
-          <h3>Database Architecture</h3>
-          <p>Design normalized PostgreSQL schemas, write optimized SQL queries, and manage complex clinical data relationships in production databases.</p>
-          <div class="service-tags">
-            <span>PostgreSQL</span><span>SQL</span><span>Schema Design</span><span>Optimization</span>
-          </div>
+        <div class="skill-row">
+          <dt>Backend</dt>
+          <dd><span class="chip glow">Node.js</span><span class="chip glow">Express.js</span><span class="chip glow">RESTful API design</span></dd>
         </div>
-        <div class="service-card glass-card fade-in" data-delay="200">
-          <div class="service-icon si-green"><i class="fas fa-hospital-alt"></i></div>
-          <h3>Healthcare IT Integration</h3>
-          <p>Integrate backend services with hospital systems using HL7/FHIR standards, enabling seamless data exchange across RIS, PACS, HIS, and EMR platforms.</p>
-          <div class="service-tags">
-            <span>HL7</span><span>FHIR</span><span>RIS/PACS</span><span>HIS/EMR</span>
-          </div>
+        <div class="skill-row">
+          <dt>Integration</dt>
+          <dd><span class="chip glow">HL7</span><span class="chip glow">FHIR</span><span class="chip glow">Event-driven messaging</span><span class="chip glow">Webhooks</span><span class="chip glow">JSON</span><span class="chip glow">HTTP/HTTPS</span><span class="chip glow">Postman</span></dd>
         </div>
-      </div>
+        <div class="skill-row">
+          <dt>Databases</dt>
+          <dd><span class="chip glow">PostgreSQL</span><span class="chip glow">Query optimization</span><span class="chip glow">Functions and stored procedures</span><span class="chip glow">Indexing</span><span class="chip glow">MySQL fundamentals</span></dd>
+        </div>
+        <div class="skill-row">
+          <dt>Way of working</dt>
+          <dd><span class="chip glow">Git</span><span class="chip glow">GitHub</span><span class="chip glow">Code review</span><span class="chip glow">Agile and SDLC</span></dd>
+        </div>
+        <div class="skill-row">
+          <dt>AI-assisted development</dt>
+          <dd><span class="chip glow">Claude</span><span class="chip glow">GitHub Copilot</span></dd>
+        </div>
+        <div class="skill-row">
+          <dt>Strengths</dt>
+          <dd><span class="chip glow">Distributed-systems debugging</span><span class="chip glow">Root-cause analysis</span><span class="chip glow">Performance optimization</span><span class="chip glow">Cross-functional collaboration</span></dd>
+        </div>
+      </dl>
     </div>
   </section>
 
-  <!-- SKILLS -->
-  <section class="section" id="skills">
-    <div class="container">
-      <div class="section-header fade-in">
-        <span class="section-tag">03 / Skills</span>
-        <h2 class="section-title">Technical Skills</h2>
-      </div>
-      <div class="skills-wrapper">
-        <div class="skill-group fade-in">
-          <h4 class="skill-group-title"><i class="fas fa-code"></i> Languages</h4>
-          <div class="tech-pills">
-            <div class="tpill js"><i class="fab fa-js-square"></i> JavaScript</div>
-            <div class="tpill sql"><i class="fas fa-database"></i> SQL</div>
-          </div>
+  <!-- ============ Project ============ -->
+  <section class="section" id="project" aria-labelledby="project-title">
+    <div class="wrap">
+      <header class="section-head">
+        <h2 class="h2" id="project-title">Side project</h2>
+      </header>
+      <article class="project">
+        <div class="project-copy">
+          <h3>Restaurant Management System</h3>
+          <p>A full-stack system with a Node.js/Express.js REST API and a PostgreSQL database that covers menus, orders, billing and inventory.</p>
+          <ul>
+            <li>Modeled the relational schema and CRUD endpoints.</li>
+            <li>Added JWT authentication with role-based access.</li>
+            <li>Built low-stock alerts to cut manual inventory monitoring.</li>
+          </ul>
+          <p class="project-stack">Node.js, Express.js, PostgreSQL, REST API, JWT</p>
         </div>
-        <div class="skill-group fade-in">
-          <h4 class="skill-group-title"><i class="fas fa-server"></i> Backend</h4>
-          <div class="tech-pills">
-            <div class="tpill node"><i class="fab fa-node-js"></i> Node.js</div>
-            <div class="tpill express"><i class="fas fa-bolt"></i> Express.js</div>
-            <div class="tpill api"><i class="fas fa-plug"></i> REST APIs</div>
+        <div class="arch" role="img" aria-label="Architecture: frontend, then JWT authentication with role-based access, then the Express.js REST API, then menu, orders, billing and inventory modules, then PostgreSQL.">
+          <div class="layer glow">Frontend</div>
+          <span class="link" aria-hidden="true"></span>
+          <div class="layer glow">JWT auth and role-based access</div>
+          <span class="link" aria-hidden="true"></span>
+          <div class="layer layer-solid glow">Express.js REST API</div>
+          <span class="link" aria-hidden="true"></span>
+          <div class="mods">
+            <div class="layer glow">Menu</div>
+            <div class="layer glow">Orders</div>
+            <div class="layer glow">Billing</div>
+            <div class="layer glow">Inventory<small>low-stock alerts</small></div>
           </div>
+          <span class="link" aria-hidden="true"></span>
+          <div class="layer glow">PostgreSQL</div>
         </div>
-        <div class="skill-group fade-in">
-          <h4 class="skill-group-title"><i class="fas fa-database"></i> Database</h4>
-          <div class="tech-pills">
-            <div class="tpill pg"><i class="fas fa-database"></i> PostgreSQL</div>
-            <div class="tpill schema"><i class="fas fa-sitemap"></i> Schema Design</div>
-            <div class="tpill query"><i class="fas fa-tachometer-alt"></i> Query Optimization</div>
-          </div>
-        </div>
-        <div class="skill-group fade-in">
-          <h4 class="skill-group-title"><i class="fas fa-tools"></i> Tools</h4>
-          <div class="tech-pills">
-            <div class="tpill git"><i class="fab fa-git-alt"></i> Git</div>
-            <div class="tpill github"><i class="fab fa-github"></i> GitHub</div>
-            <div class="tpill postman"><i class="fas fa-paper-plane"></i> Postman</div>
-          </div>
-        </div>
-        <div class="skill-group fade-in">
-          <h4 class="skill-group-title"><i class="fas fa-hospital"></i> Healthcare IT</h4>
-          <div class="tech-pills">
-            <div class="tpill hl7"><i class="fas fa-heartbeat"></i> HL7</div>
-            <div class="tpill fhir"><i class="fas fa-fire-alt"></i> FHIR</div>
-            <div class="tpill ris"><i class="fas fa-x-ray"></i> RIS/PACS</div>
-            <div class="tpill emr"><i class="fas fa-file-medical"></i> HIS/EMR</div>
-          </div>
-        </div>
-        <div class="skill-group fade-in">
-          <h4 class="skill-group-title"><i class="fas fa-lightbulb"></i> Concepts</h4>
-          <div class="tech-pills">
-            <div class="tpill concept"><i class="fas fa-code-branch"></i> API Design</div>
-            <div class="tpill concept"><i class="fas fa-bug"></i> Debugging</div>
-            <div class="tpill concept"><i class="fas fa-shield-alt"></i> API Security</div>
-            <div class="tpill concept"><i class="fas fa-layer-group"></i> CRUD Operations</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- POSTMAN SHOWCASE -->
-      <div class="postman-showcase fade-in">
-        <div class="pm-label">
-          <i class="fas fa-paper-plane"></i>
-          <span>API Testing with Postman</span>
-        </div>
-        <div class="postman-card">
-          <div class="pm-topbar">
-            <div class="pm-win-dots">
-              <span class="pm-dot red"></span>
-              <span class="pm-dot yellow"></span>
-              <span class="pm-dot green"></span>
-            </div>
-            <span class="pm-app-name"><i class="fas fa-paper-plane"></i> Postman</span>
-            <span class="pm-saved"><i class="fas fa-cloud"></i> Saved</span>
-          </div>
-          <div class="pm-url-bar">
-            <span class="pm-method get">GET</span>
-            <span class="pm-url-text">&#123;&#123;base_url&#125;&#125;/api/worklist?status=PENDING&amp;limit=20</span>
-            <button class="pm-send">Send</button>
-          </div>
-          <div class="pm-tabs">
-            <span class="pm-tab active">Params</span>
-            <span class="pm-tab">Authorization</span>
-            <span class="pm-tab">Headers <em>3</em></span>
-            <span class="pm-tab">Body</span>
-          </div>
-          <div class="pm-params">
-            <div class="pm-param-head"><span>KEY</span><span>VALUE</span><span>DESCRIPTION</span></div>
-            <div class="pm-param-row"><span class="pk">status</span><span class="pv">PENDING</span><span class="pd">Filter studies by status</span></div>
-            <div class="pm-param-row"><span class="pk">limit</span><span class="pv">20</span><span class="pd">Results per page</span></div>
-          </div>
-          <div class="pm-divider"></div>
-          <div class="pm-response">
-            <div class="pm-res-meta">
-              <span class="pm-status">200 OK</span>
-              <span class="pm-meta-item">Time: 142 ms</span>
-              <span class="pm-meta-item">Size: 1.24 KB</span>
-              <div class="pm-res-tabs">
-                <span class="pm-tab active">Pretty</span>
-                <span class="pm-tab">Raw</span>
-                <span class="pm-tab">Preview</span>
-              </div>
-            </div>
-<pre class="pm-json"><span class="pj-p">{</span>
-  <span class="pj-k">"status"</span><span class="pj-p">:</span> <span class="pj-s">"success"</span><span class="pj-p">,</span>
-  <span class="pj-k">"count"</span><span class="pj-p">:</span> <span class="pj-n">3</span><span class="pj-p">,</span>
-  <span class="pj-k">"studies"</span><span class="pj-p">:</span> <span class="pj-p">[</span>
-    <span class="pj-p">{</span>
-      <span class="pj-k">"id"</span><span class="pj-p">:</span>       <span class="pj-s">"ST-2024-001"</span><span class="pj-p">,</span>
-      <span class="pj-k">"patient"</span><span class="pj-p">:</span>  <span class="pj-s">"John D."</span><span class="pj-p">,</span>
-      <span class="pj-k">"modality"</span><span class="pj-p">:</span> <span class="pj-s">"CT"</span><span class="pj-p">,</span>
-      <span class="pj-k">"status"</span><span class="pj-p">:</span>   <span class="pj-s">"PENDING"</span><span class="pj-p">,</span>
-      <span class="pj-k">"priority"</span><span class="pj-p">:</span> <span class="pj-s">"STAT"</span>
-    <span class="pj-p">}</span>
-  <span class="pj-p">]</span>
-<span class="pj-p">}</span></pre>
-          </div>
-        </div>
-      </div>
-
+      </article>
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
-  <section class="section section-dark" id="experience">
-    <div class="container">
-      <div class="section-header fade-in">
-        <span class="section-tag">04 / Experience</span>
-        <h2 class="section-title">Professional Experience</h2>
+  <!-- ============ Contact ============ -->
+  <section class="section contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <h2 class="contact-title" id="contact-title">Hiring a backend engineer?</h2>
+      <p class="contact-lede">I'm open to backend and integration roles. Email is the fastest way to reach me.</p>
+      <div class="contact-actions">
+        <a class="btn btn-solid glow" href="mailto:prabhuchelladura786@gmail.com">Email me</a>
+        <button class="btn glow" type="button" id="copy-email">Copy email address</button>
+        <a class="btn glow" href="https://www.linkedin.com/in/prabhu-chelladurai" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn glow" href="tel:+918939511571">Call +91 89395 11571</a>
       </div>
-      <div class="timeline">
-        <div class="timeline-item fade-in">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card glass-card">
-            <div class="timeline-header">
-              <div>
-                <h3 class="timeline-role">Software Developer <span class="role-tag">Backend</span></h3>
-                <p class="timeline-company"><i class="fas fa-building"></i> LMImaging (India) Private Limited — Livemedica</p>
-                <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu &nbsp;·&nbsp; <i class="fas fa-stethoscope"></i> Healthcare IT (RIS/PACS)</p>
-              </div>
-              <span class="timeline-badge">June 2025 – Present</span>
-            </div>
-            <ul class="timeline-bullets">
-              <li><i class="fas fa-circle-check"></i>Developed and maintained <strong>15+ RESTful APIs</strong> using Node.js and Express.js supporting core <strong>RIS/PACS workflows</strong> — radiology worklist management, order processing, and report generation for US hospital clients.</li>
-              <li><i class="fas fa-circle-check"></i>Designed and optimized <strong>PostgreSQL schemas and complex SQL queries</strong> to handle clinical data including patient records, study metadata, and radiologist assignments across <strong>10+ production modules</strong>.</li>
-              <li><i class="fas fa-circle-check"></i>Integrated backend services with <strong>third-party healthcare systems</strong> using <strong>HL7/FHIR standards</strong>, enabling seamless data exchange between RIS, PACS, and hospital HIS/EMR platforms.</li>
-              <li><i class="fas fa-circle-check"></i>Resolved <strong>30+ critical production bugs</strong> within sprint cycles on a healthcare IT product actively used by radiologists and radiology technologists across US hospitals.</li>
-              <li><i class="fas fa-circle-check"></i>Validated <strong>20+ API endpoints</strong> using Postman and managed feature branches via Git/GitHub following code review best practices.</li>
-            </ul>
-            <div class="timeline-tech">
-              <span class="tech-tag">Node.js</span>
-              <span class="tech-tag">Express.js</span>
-              <span class="tech-tag">PostgreSQL</span>
-              <span class="tech-tag">HL7/FHIR</span>
-              <span class="tech-tag">REST APIs</span>
-              <span class="tech-tag">Git</span>
-              <span class="tech-tag">Postman</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <p class="contact-meta">prabhuchelladura786@gmail.com<br>Bangalore, Karnataka, India</p>
     </div>
   </section>
+</main>
 
-  <!-- PROJECTS -->
-  <section class="section" id="projects">
-    <div class="container">
-      <div class="section-header fade-in">
-        <span class="section-tag">05 / Projects</span>
-        <h2 class="section-title">Featured Work</h2>
-        <p class="section-sub">Production software built at Livemedica powering US hospital radiology workflows.</p>
-      </div>
-      <div class="projects-grid">
-
-        <div class="project-card glass-card fade-in" data-delay="0">
-          <div class="project-header">
-            <div class="project-icon pi-cyan"><i class="fas fa-list-alt"></i></div>
-            <span class="proj-badge">Professional</span>
-          </div>
-          <h3 class="project-title">Radiology Worklist API</h3>
-          <p class="project-desc">RESTful API for managing radiology study queues — supporting study filtering, status tracking, radiologist assignment, and priority-based ordering for US hospital workflows.</p>
-          <div class="project-tech">
-            <span>Node.js</span><span>Express.js</span><span>PostgreSQL</span><span>REST</span>
-          </div>
-        </div>
-
-        <div class="project-card glass-card fade-in" data-delay="120">
-          <div class="project-header">
-            <div class="project-icon pi-purple"><i class="fas fa-exchange-alt"></i></div>
-            <span class="proj-badge">Professional</span>
-          </div>
-          <h3 class="project-title">Patient Data Sync Service</h3>
-          <p class="project-desc">Backend integration service that parses HL7 messages and syncs patient demographics and orders between Hospital Information Systems and the RIS in real time.</p>
-          <div class="project-tech">
-            <span>Node.js</span><span>HL7/FHIR</span><span>PostgreSQL</span><span>HIS/EMR</span>
-          </div>
-        </div>
-
-        <div class="project-card glass-card fade-in" data-delay="240">
-          <div class="project-header">
-            <div class="project-icon pi-green"><i class="fas fa-file-medical-alt"></i></div>
-            <span class="proj-badge">Professional</span>
-          </div>
-          <h3 class="project-title">Radiology Report Service</h3>
-          <p class="project-desc">Microservice for generating, tracking, and distributing radiology reports — with status lifecycle management and audit logging for US hospital compliance standards.</p>
-          <div class="project-tech">
-            <span>Express.js</span><span>PostgreSQL</span><span>REST API</span><span>Git</span>
-          </div>
-        </div>
-
-      </div>
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <a class="foot-brand glow" href="#top" title="Back to top" aria-label="Prabhu C, back to top">&lt;Prabhu <b>C</b> /&gt;</a>
+    <p class="foot-tag">Backend Developer · Healthcare IT · Node.js · PostgreSQL</p>
+    <div class="foot-icons">
+      <a class="icon-link glow" href="mailto:prabhuchelladura786@gmail.com" title="Email" aria-label="Email Prabhu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+      <a class="icon-link glow" href="https://www.linkedin.com/in/prabhu-chelladurai" target="_blank" rel="noopener" title="LinkedIn" aria-label="Prabhu on LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></a>
     </div>
-  </section>
+    <p class="foot-credit">Designed &amp; Built by Prabhu C · <span id="year">2026</span></p>
+  </div>
+</footer>
 
-  <!-- EDUCATION -->
-  <section class="section section-dark" id="education">
-    <div class="container">
-      <div class="section-header fade-in">
-        <span class="section-tag">06 / Education</span>
-        <h2 class="section-title">Education</h2>
-      </div>
-      <div class="edu-card glass-card fade-in">
-        <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
-        <div class="edu-content">
-          <h3>M.Sc. Computer Science & Technology</h3>
-          <p class="edu-college"><i class="fas fa-university"></i> SRM Arts and Science College, Madras University, Chennai</p>
-          <div class="edu-meta">
-            <span><i class="fas fa-calendar-alt"></i> Graduated: 2023</span>
-            <span><i class="fas fa-star"></i> CGPA: 7.20 / 10</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<script>
+(() => {
+  'use strict';
+  const root = document.documentElement;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const touchOnly = matchMedia('(hover: none)').matches;
 
-  <!-- CONTACT -->
-  <section class="section" id="contact">
-    <div class="container">
-      <div class="section-header fade-in">
-        <span class="section-tag">07 / Contact</span>
-        <h2 class="section-title">Get In Touch</h2>
-        <p class="section-sub">Open to Backend Developer / Software Engineer roles. Let's connect!</p>
-      </div>
-      <div class="contact-grid">
-        <a href="mailto:prabujazz2020@gmail.com" class="contact-card glass-card fade-in">
-          <div class="contact-icon-wrap ci-cyan"><i class="fas fa-envelope"></i></div>
-          <h4>Email</h4>
-          <p>prabujazz2020@gmail.com</p>
-          <span class="contact-arrow"><i class="fas fa-arrow-right"></i></span>
-        </a>
-        <a href="tel:+918939511571" class="contact-card glass-card fade-in" data-delay="80">
-          <div class="contact-icon-wrap ci-purple"><i class="fas fa-phone"></i></div>
-          <h4>Phone</h4>
-          <p>+91-8939511571</p>
-          <span class="contact-arrow"><i class="fas fa-arrow-right"></i></span>
-        </a>
-        <a href="https://www.linkedin.com/in/prabhu-chelladurai" target="_blank" rel="noopener" class="contact-card glass-card fade-in" data-delay="160">
-          <div class="contact-icon-wrap ci-blue"><i class="fab fa-linkedin"></i></div>
-          <h4>LinkedIn</h4>
-          <p>prabhu-chelladurai</p>
-          <span class="contact-arrow"><i class="fas fa-arrow-right"></i></span>
-        </a>
-        <div class="contact-card glass-card fade-in" data-delay="240">
-          <div class="contact-icon-wrap ci-green"><i class="fas fa-map-marker-alt"></i></div>
-          <h4>Location</h4>
-          <p>Chennai, Tamil Nadu, India</p>
-          <span class="open-badge"><span class="open-dot"></span> Open to Remote</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  /* ---------- Theme ---------- */
+  const darkMQ = matchMedia('(prefers-color-scheme: dark)');
+  const themeBtn = $('#theme');
+  const currentTheme = () => root.getAttribute('data-theme') || (darkMQ.matches ? 'dark' : 'light');
+  const labelTheme = () => themeBtn.setAttribute('aria-label', currentTheme() === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+  themeBtn.addEventListener('click', () => {
+    const next = currentTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('pc-theme', next); } catch (e) { /* storage blocked: theme still applies for this visit */ }
+    labelTheme();
+  });
+  if (darkMQ.addEventListener) darkMQ.addEventListener('change', labelTheme);
+  labelTheme();
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-content">
-      <p class="footer-logo">&lt;Prabhu <span class="gradient-text">C</span> /&gt;</p>
-      <p class="footer-sub">Backend Developer · Healthcare IT · Node.js · PostgreSQL</p>
-      <div class="footer-socials">
-        <a href="mailto:prabujazz2020@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-        <a href="https://www.linkedin.com/in/prabhu-chelladurai" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-      </div>
-      <p class="footer-copy">Designed & Built by Prabhu C · 2026</p>
-    </div>
-  </footer>
+  /* ---------- Nav ---------- */
+  const nav = $('#nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-  <script src="script.js"></script>
+  /* ---------- Order path: steps up to the hovered one count as passed ---------- */
+  const steps = $$('#trace .step');
+  const setStep = (i) => steps.forEach((s, k) => s.classList.toggle('passed', k <= i));
+  steps.forEach((s, i) => ['pointerenter', 'focus', 'click'].forEach((ev) => s.addEventListener(ev, () => setStep(i))));
+  setStep(0);
+
+  /* ---------- Touch screens: light up whatever sits mid-screen ---------- */
+  document.addEventListener('touchstart', () => {}, { passive: true }); // lets :active fire on iOS
+  if (touchOnly && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        e.target.classList.toggle('lit', e.isIntersecting);
+        const i = steps.indexOf(e.target);
+        if (e.isIntersecting && i > -1) setStep(i);
+      });
+    }, { rootMargin: '-46% 0px -46% 0px' });
+    $$('.step, .row, .layer').forEach((el) => io.observe(el));
+  }
+
+  /* ---------- Ask me anything (answers come from the resume) ---------- */
+  const EMAIL = 'prabhuchelladura786@gmail.com';
+  const LINKEDIN = 'https://www.linkedin.com/in/prabhu-chelladurai';
+  const QA = {
+    greet: ["Hi! Ask me about my experience, my HL7/FHIR work, PostgreSQL, my side project, or how to reach me.", []],
+    me: ["I'm Prabhu, a backend software engineer in Bangalore. From mid-2025 to mid-2026 I built REST APIs and HL7/FHIR integrations for a US healthcare RIS/PACS platform, mostly with Node.js, Express.js and PostgreSQL. I like owning a module end to end and following a production issue down to its root cause.", [['See my work', '#work'], ['See experience', '#experience']]],
+    exp: ["From Jun 2025 to Jul 2026 I was a Software Developer (Backend) at LMImaging (Livemedica) in Chennai: 15+ REST APIs for RIS/PACS workflows, HL7/FHIR integrations with hospital HIS/EMR systems, PostgreSQL tuning across 10+ production modules, and 30+ production issues closed. Before that, from Jun 2024 to Jun 2025, I worked US insurance claims as an AR Caller at AGS Health.", [['See experience', '#experience']]],
+    skills: ["JavaScript (ES6+) and SQL. Node.js and Express.js in production, RESTful API design, HL7/FHIR, webhooks and event-driven messaging. PostgreSQL query optimization, functions, stored procedures and indexing, plus MySQL fundamentals. Git, GitHub, Postman and Agile. I also use Claude and GitHub Copilot day to day for development, code review and debugging.", [['See skills', '#skills']]],
+    hl7: ["I connected backend services to hospital HIS/EMR platforms over HL7/FHIR, so RIS, PACS and EMR systems could exchange data in real time. That removed close to 40% of manual reconciliation work, and I became the go-to contact for HL7/FHIR interface issues.", [['See the order path', '#work']]],
+    db: ["I owned complex PostgreSQL queries, functions and stored procedures that process clinical data across 10+ production modules, and improved query efficiency by about 30%. I also know MySQL fundamentals.", [['See experience', '#experience']]],
+    project: ["My side project is a Restaurant Management System: a Node.js/Express.js REST API on PostgreSQL covering menus, orders, billing and inventory, with JWT authentication, role-based access and low-stock alerts.", [['See the project', '#project']]],
+    edu: ["I have an M.Sc. in Computer Science & Technology from SRM Arts and Science College (University of Madras), Chennai. I graduated in 2023 with a CGPA of 7.20 / 10.", [['See education', '#experience']]],
+    contact: ["Email me at " + EMAIL + " or message me on LinkedIn. You can also call +91 89395 11571. I'm open to backend and integration roles.", [['Email me', 'mailto:' + EMAIL], ['LinkedIn', LINKEDIN]]],
+    loc: ["I'm based in Bangalore, Karnataka. My last team was in Chennai.", [['Contact me', '#contact']]],
+    ai: ["I use Claude and GitHub Copilot in my daily workflow to build faster, review code and debug production issues.", [['See skills', '#skills']]],
+    process: ["I've diagnosed and closed 30+ production issues through systematic debugging and root-cause analysis. I ran code-review cycles and Git feature-branch workflows that cut integration issues by about 35%, validated 20+ endpoints in Postman, and informally guided newer teammates on how to debug.", [['See experience', '#experience']]],
+    ags: ["Before moving into engineering, I spent a year at AGS Health as an AR Caller in US healthcare revenue cycle management: following up denied and unpaid claims with payers, analyzing EOBs and payer portals, and driving corrections, reprocessing and appeals under HIPAA.", [['See experience', '#experience']]],
+    fallback: ["I don't have an answer for that yet. Try asking about my experience, skills, HL7/FHIR work, PostgreSQL, side project, education, or how to reach me.", []],
+  };
+  const INTENTS = [
+    ['contact', /contact|e-?mail|\bmail\b|reach|phone|\bcall\b|number|linkedin|hire|hiring|availab|open to|interview|resume|\bcv\b/g],
+    ['hl7', /hl7|fhir|interop|integrat|interface|\bemr\b|\behr\b|\bhis\b|radiolog|\bris\b|pacs|dicom|healthcare|hospital|clinical|medical/g],
+    ['db', /postgres|\bsql\b|database|\bdbs?\b|quer(?:y|ies)|stored|procedure|mysql|index/g],
+    ['project', /project|restaurant|\brms\b|\bside\b|\bbuilt\b|github|\brepo/g],
+    ['skills', /skill|stack|tech|language|node|express|javascript|\bjs\b|\btools?\b|framework/g],
+    ['exp', /experien|\bwork|\bjobs?\b|livemedica|lmimaging|compan(?:y|ies)|\broles?\b|career|employ|\byears?\b/g],
+    ['edu', /educat|degree|college|universit|stud(?:y|ied)|m\.?\s?sc|graduat|cgpa|qualif/g],
+    ['loc', /where|locat|based|\bcity\b|bangalore|bengaluru|relocat|remote|chennai|india/g],
+    ['ai', /\bai\b|claude|copilot|\bllms?\b|gpt/g],
+    ['process', /debug|issue|incident|production|root.?cause|\brca\b|review|\bgit\b|agile|\bteams?\b|mentor|postman|sdlc/g],
+    ['ags', /\bags\b|ar caller|\brcm\b|revenue|claims?|denial|insurance|payer|hipaa|\beobs?\b/g],
+    ['me', /yourself|who are you|who is|introduce|summary|background|about (?:me|you)\b|what do you do/g],
+  ];
+  const GREET = /^(?:hi+|hello|hey|yo|hola|namaste|vanakkam)\b/;
+  function classify(q) {
+    const s = q.toLowerCase();
+    let best = null, score = 0;
+    for (const [key, re] of INTENTS) {
+      const m = s.match(re);
+      const n = m ? m.length : 0;
+      if (n > score) { best = key; score = n; }
+    }
+    if (best) return best;
+    return GREET.test(s) ? 'greet' : 'fallback';
+  }
+
+  const input = $('#ask-input'), sendBtn = $('#ask-send'), panel = $('#answer');
+  const outQ = $('#answer-q'), outText = $('#answer-text'), outLive = $('#answer-live'), outActs = $('#answer-actions');
+  let typeTimer = 0;
+  function respond(key, asked) {
+    const [text, acts] = QA[key] || QA.fallback;
+    panel.hidden = false;
+    outQ.textContent = asked;
+    outLive.textContent = text;
+    outActs.textContent = '';
+    clearInterval(typeTimer);
+    const showActions = () => {
+      acts.forEach(([label, href]) => {
+        const a = document.createElement('a');
+        a.className = 'btn btn-sm glow';
+        a.href = href;
+        a.textContent = label;
+        if (/^https?:/.test(href)) { a.target = '_blank'; a.rel = 'noopener'; }
+        outActs.appendChild(a);
+      });
+    };
+    if (reduceMotion) { outText.textContent = text; showActions(); return; }
+    let i = 0;
+    outText.textContent = '';
+    outText.classList.add('typing');
+    typeTimer = setInterval(() => {
+      i = Math.min(text.length, i + 3);
+      outText.textContent = text.slice(0, i);
+      if (i >= text.length) {
+        clearInterval(typeTimer);
+        outText.classList.remove('typing');
+        showActions();
+      }
+    }, 16);
+  }
+  function ask() {
+    const q = input.value.trim();
+    if (!q) { input.placeholder = 'Type a question, or pick one below'; input.focus(); return; }
+    respond(classify(q), '“' + q + '”');
+    input.value = '';
+  }
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); ask(); }
+  });
+  sendBtn.addEventListener('click', ask);
+  $$('.suggest button').forEach((b) => b.addEventListener('click', () => respond(b.dataset.intent, b.textContent.trim())));
+
+  /* ---------- Copy email ---------- */
+  const copyBtn = $('#copy-email');
+  let copyReset = 0;
+  copyBtn.addEventListener('click', async () => {
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      ok = true;
+    } catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = EMAIL;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+      document.body.appendChild(ta);
+      ta.select();
+      try { ok = document.execCommand('copy'); } catch (e2) { ok = false; }
+      ta.remove();
+    }
+    // If the browser blocks copying, show the address so it can be copied by hand.
+    copyBtn.textContent = ok ? 'Email address copied' : EMAIL;
+    clearTimeout(copyReset);
+    copyReset = setTimeout(() => { copyBtn.textContent = 'Copy email address'; }, 2400);
+  });
+
+  /* ---------- Copy protection (the ask box and Copy email button still work) ---------- */
+  const elOf = (t) => (t && t.nodeType === 1 ? t : t && t.parentElement) || null;
+  ['copy', 'cut', 'selectstart', 'dragstart'].forEach((type) => {
+    document.addEventListener(type, (e) => {
+      const el = elOf(e.target);
+      if (!el || !el.closest('input, textarea')) e.preventDefault();
+    });
+  });
+  document.addEventListener('contextmenu', (e) => {
+    const el = elOf(e.target);
+    if (!el || !el.closest('a, input, textarea')) e.preventDefault();
+  });
+
+  $('#year').textContent = String(new Date().getFullYear());
+
+  /* =====================================================================
+     WebGL fluid cursor (stable-fluids: advection, vorticity, pressure solve)
+     ===================================================================== */
+  const fluid = (() => {
+    const canvas = $('#fluid');
+    const fail = (why) => {
+      root.classList.add('no-fluid');
+      window.__fluid = { ok: false, why: String((why && why.message) || why) };
+      return null;
+    };
+    try {
+      if (!canvas) return fail('no canvas');
+      const cfg = {
+        SIM: 128,
+        DYE: (touchOnly || Math.min(screen.width, screen.height) < 700) ? 512 : 1024,
+        DENSITY_DISSIPATION: 2.6,
+        VELOCITY_DISSIPATION: 1.7,
+        PRESSURE: 0.12,
+        PRESSURE_ITERATIONS: 20,
+        CURL: 3.2,
+        SPLAT_RADIUS: 0.22,
+        SPLAT_FORCE: 6000,
+        SHADING: true,
+        INTENSITY: 0.15,
+      };
+
+      const ctxOpts = { alpha: true, depth: false, stencil: false, antialias: false, preserveDrawingBuffer: false, premultipliedAlpha: true };
+      let gl = canvas.getContext('webgl2', ctxOpts);
+      const isGL2 = !!gl;
+      if (!gl) gl = canvas.getContext('webgl', ctxOpts) || canvas.getContext('experimental-webgl', ctxOpts);
+      if (!gl) return fail('WebGL unavailable');
+
+      let halfFloat, linear;
+      if (isGL2) {
+        gl.getExtension('EXT_color_buffer_float');
+        gl.getExtension('EXT_color_buffer_half_float');
+        halfFloat = gl.HALF_FLOAT;
+        linear = true; // RGBA16F is filterable in WebGL2
+      } else {
+        const hf = gl.getExtension('OES_texture_half_float');
+        if (!hf) return fail('half-float textures unavailable');
+        halfFloat = hf.HALF_FLOAT_OES;
+        linear = !!gl.getExtension('OES_texture_half_float_linear');
+      }
+
+      function supportsRender(internalFormat, format) {
+        const tex = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, tex);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, 4, 4, 0, format, halfFloat, null);
+        const fb = gl.createFramebuffer();
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+        const ok = gl.checkFramebufferStatus(gl.FRAMEBUFFER) === gl.FRAMEBUFFER_COMPLETE;
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        gl.deleteFramebuffer(fb);
+        gl.deleteTexture(tex);
+        return ok;
+      }
+      function pickFormat(internalFormat, format) {
+        if (supportsRender(internalFormat, format)) return { internalFormat, format };
+        if (isGL2 && internalFormat === gl.R16F) return pickFormat(gl.RG16F, gl.RG);
+        if (isGL2 && internalFormat === gl.RG16F) return pickFormat(gl.RGBA16F, gl.RGBA);
+        return null;
+      }
+      const fmtRGBA = isGL2 ? pickFormat(gl.RGBA16F, gl.RGBA) : pickFormat(gl.RGBA, gl.RGBA);
+      const fmtRG = isGL2 ? pickFormat(gl.RG16F, gl.RG) : fmtRGBA;
+      const fmtR = isGL2 ? pickFormat(gl.R16F, gl.RED) : fmtRGBA;
+      if (!fmtRGBA || !fmtRG || !fmtR) return fail('cannot render to half-float textures');
+      if (!linear) { cfg.DYE = 512; cfg.SHADING = false; }
+
+      /* ---- Shaders (GLSL ES 1.00, run in both WebGL1 and WebGL2) ---- */
+      const VERT = `
+precision highp float;
+attribute vec2 aPosition;
+varying vec2 vUv;
+varying vec2 vL;
+varying vec2 vR;
+varying vec2 vT;
+varying vec2 vB;
+uniform vec2 texelSize;
+void main () {
+  vUv = aPosition * 0.5 + 0.5;
+  vL = vUv - vec2(texelSize.x, 0.0);
+  vR = vUv + vec2(texelSize.x, 0.0);
+  vT = vUv + vec2(0.0, texelSize.y);
+  vB = vUv - vec2(0.0, texelSize.y);
+  gl_Position = vec4(aPosition, 0.0, 1.0);
+}`;
+      const FS_COPY = `
+precision highp float;
+precision highp sampler2D;
+varying vec2 vUv;
+uniform sampler2D uTexture;
+void main () {
+  gl_FragColor = texture2D(uTexture, vUv);
+}`;
+      const FS_CLEAR = `
+precision highp float;
+precision highp sampler2D;
+varying vec2 vUv;
+uniform sampler2D uTexture;
+uniform float value;
+void main () {
+  gl_FragColor = value * texture2D(uTexture, vUv);
+}`;
+      const FS_SPLAT = `
+precision highp float;
+precision highp sampler2D;
+varying vec2 vUv;
+uniform sampler2D uTarget;
+uniform float aspectRatio;
+uniform vec3 color;
+uniform vec2 point;
+uniform float radius;
+void main () {
+  vec2 p = vUv - point.xy;
+  p.x *= aspectRatio;
+  vec3 splat = exp(-dot(p, p) / radius) * color;
+  vec3 base = texture2D(uTarget, vUv).xyz;
+  gl_FragColor = vec4(base + splat, 1.0);
+}`;
+      const FS_ADVECT = `
+precision highp float;
+precision highp sampler2D;
+varying vec2 vUv;
+uniform sampler2D uVelocity;
+uniform sampler2D uSource;
+uniform vec2 texelSize;
+uniform vec2 dyeTexelSize;
+uniform float dt;
+uniform float dissipation;
+vec4 bilerp (sampler2D sam, vec2 uv, vec2 tsize) {
+  vec2 st = uv / tsize - 0.5;
+  vec2 iuv = floor(st);
+  vec2 fuv = fract(st);
+  vec4 a = texture2D(sam, (iuv + vec2(0.5, 0.5)) * tsize);
+  vec4 b = texture2D(sam, (iuv + vec2(1.5, 0.5)) * tsize);
+  vec4 c = texture2D(sam, (iuv + vec2(0.5, 1.5)) * tsize);
+  vec4 d = texture2D(sam, (iuv + vec2(1.5, 1.5)) * tsize);
+  return mix(mix(a, b, fuv.x), mix(c, d, fuv.x), fuv.y);
+}
+void main () {
+#ifdef MANUAL_FILTERING
+  vec2 coord = vUv - dt * bilerp(uVelocity, vUv, texelSize).xy * texelSize;
+  vec4 result = bilerp(uSource, coord, dyeTexelSize);
+#else
+  vec2 coord = vUv - dt * texture2D(uVelocity, vUv).xy * texelSize;
+  vec4 result = texture2D(uSource, coord);
+#endif
+  float decay = 1.0 + dissipation * dt;
+  gl_FragColor = result / decay;
+}`;
+      const FS_DIVERGENCE = `
+precision highp float;
+precision highp sampler2D;
+varying vec2 vUv;
+varying vec2 vL;
+varying vec2 vR;
+varying vec2 vT;
+varying vec2 vB;
+uniform sampler2D uVelocity;
+void main () {
+  float L = texture2D(uVelocity, vL).x;
+  float R = texture2D(uVelocity, vR).x;
+  float T = texture2D(uVelocity, vT).y;
+  float B = texture2D(uVelocity, vB).y;
+  vec2 C = texture2D(uVelocity, vUv).xy;
+  if (vL.x < 0.0) { L = -C.x; }
+  if (vR.x > 1.0) { R = -C.x; }
+  if (vT.y > 1.0) { T = -C.y; }
+  if (vB.y < 0.0) { B = -C.y; }
+  float div = 0.5 * (R - L + T - B);
+  gl_FragColor = vec4(div, 0.0, 0.0, 1.0);
+}`;
+      const FS_CURL = `
+precision highp float;
+precision highp sampler2D;
+varying vec2 vUv;
+varying vec2 vL;
+varying vec2 vR;
+varying vec2 vT;
+varying vec2 vB;
+uniform sampler2D uVelocity;
+void main () {
+  float L = texture2D(uVelocity, vL).y;
+  float R = texture2D(uVelocity, vR).y;
+  float T = texture2D(uVelocity, vT).x;
+  float B = texture2D(uVelocity, vB).x;
+  float vorticity = R - L - T + B;
+  gl_FragColor = vec4(0.5 * vorticity, 0.0, 0.0, 1.0);
+}`;
+      const FS_VORTICITY = `
+precision highp float;
+precision highp sampler2D;
+varying vec2 vUv;
+varying vec2 vL;
+varying vec2 vR;
+varying vec2 vT;
+varying vec2 vB;
+uniform sampler2D uVelocity;
+uniform sampler2D uCurl;
+uniform float curl;
+uniform float dt;
+void main () {
+  float L = texture2D(uCurl, vL).x;
+  float R = texture2D(uCurl, vR).x;
+  float T = texture2D(uCurl, vT).x;
+  float B = texture2D(uCurl, vB).x;
+  float C = texture2D(uCurl, vUv).x;
+  vec2 force = 0.5 * vec2(abs(T) - abs(B), abs(R) - abs(L));
+  force /= length(force) + 0.0001;
+  force *= curl * C;
+  force.y *= -1.0;
+  vec2 velocity = texture2D(uVelocity, vUv).xy;
+  velocity += force * dt;
+  velocity = min(max(velocity, -1000.0), 1000.0);
+  gl_FragColor = vec4(velocity, 0.0, 1.0);
+}`;
+      const FS_PRESSURE = `
+precision highp float;
+precision highp sampler2D;
+varying vec2 vUv;
+varying vec2 vL;
+varying vec2 vR;
+varying vec2 vT;
+varying vec2 vB;
+uniform sampler2D uPressure;
+uniform sampler2D uDivergence;
+void main () {
+  float L = texture2D(uPressure, vL).x;
+  float R = texture2D(uPressure, vR).x;
+  float T = texture2D(uPressure, vT).x;
+  float B = texture2D(uPressure, vB).x;
+  float divergence = texture2D(uDivergence, vUv).x;
+  float pressure = (L + R + B + T - divergence) * 0.25;
+  gl_FragColor = vec4(pressure, 0.0, 0.0, 1.0);
+}`;
+      const FS_GRADIENT = `
+precision highp float;
+precision highp sampler2D;
+varying vec2 vUv;
+varying vec2 vL;
+varying vec2 vR;
+varying vec2 vT;
+varying vec2 vB;
+uniform sampler2D uPressure;
+uniform sampler2D uVelocity;
+void main () {
+  float L = texture2D(uPressure, vL).x;
+  float R = texture2D(uPressure, vR).x;
+  float T = texture2D(uPressure, vT).x;
+  float B = texture2D(uPressure, vB).x;
+  vec2 velocity = texture2D(uVelocity, vUv).xy;
+  velocity.xy -= vec2(R - L, T - B);
+  gl_FragColor = vec4(velocity, 0.0, 1.0);
+}`;
+      const FS_DISPLAY = `
+precision highp float;
+precision highp sampler2D;
+varying vec2 vUv;
+varying vec2 vL;
+varying vec2 vR;
+varying vec2 vT;
+varying vec2 vB;
+uniform sampler2D uTexture;
+uniform vec2 texelSize;
+void main () {
+  vec3 c = texture2D(uTexture, vUv).rgb;
+#ifdef SHADING
+  vec3 lc = texture2D(uTexture, vL).rgb;
+  vec3 rc = texture2D(uTexture, vR).rgb;
+  vec3 tc = texture2D(uTexture, vT).rgb;
+  vec3 bc = texture2D(uTexture, vB).rgb;
+  float dx = length(rc) - length(lc);
+  float dy = length(tc) - length(bc);
+  vec3 n = normalize(vec3(dx, dy, length(texelSize)));
+  vec3 l = vec3(0.0, 0.0, 1.0);
+  float diffuse = clamp(dot(n, l) + 0.7, 0.7, 1.0);
+  c *= diffuse;
+#endif
+  float a = max(c.r, max(c.g, c.b));
+  gl_FragColor = vec4(c, a);
+}`;
+
+      function compile(type, src, defines) {
+        const sh = gl.createShader(type);
+        gl.shaderSource(sh, (defines || []).map((d) => '#define ' + d + '\n').join('') + src);
+        gl.compileShader(sh);
+        if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) throw new Error('shader: ' + gl.getShaderInfoLog(sh));
+        return sh;
+      }
+      const vs = compile(gl.VERTEX_SHADER, VERT);
+      function program(fsSrc, defines) {
+        const p = gl.createProgram();
+        gl.attachShader(p, vs);
+        gl.attachShader(p, compile(gl.FRAGMENT_SHADER, fsSrc, defines));
+        gl.bindAttribLocation(p, 0, 'aPosition');
+        gl.linkProgram(p);
+        if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error('link: ' + gl.getProgramInfoLog(p));
+        const u = {};
+        const count = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS);
+        for (let i = 0; i < count; i++) {
+          const name = gl.getActiveUniform(p, i).name;
+          u[name] = gl.getUniformLocation(p, name);
+        }
+        return { u, use: () => gl.useProgram(p) };
+      }
+      const copyProg = program(FS_COPY);
+      const clearProg = program(FS_CLEAR);
+      const splatProg = program(FS_SPLAT);
+      const advectProg = program(FS_ADVECT, linear ? [] : ['MANUAL_FILTERING']);
+      const divProg = program(FS_DIVERGENCE);
+      const curlProg = program(FS_CURL);
+      const vortProg = program(FS_VORTICITY);
+      const pressProg = program(FS_PRESSURE);
+      const gradProg = program(FS_GRADIENT);
+      const displayProg = program(FS_DISPLAY, cfg.SHADING ? ['SHADING'] : []);
+
+      /* ---- Full-screen quad ---- */
+      gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]), gl.STATIC_DRAW);
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer());
+      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array([0, 1, 2, 0, 2, 3]), gl.STATIC_DRAW);
+      gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+      gl.enableVertexAttribArray(0);
+      gl.disable(gl.BLEND);
+
+      function blit(target) {
+        if (target) {
+          gl.viewport(0, 0, target.width, target.height);
+          gl.bindFramebuffer(gl.FRAMEBUFFER, target.fbo);
+        } else {
+          gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+          gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        }
+        gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+      }
+
+      /* ---- Render targets ---- */
+      function makeFBO(w, h, fmt, filter) {
+        gl.activeTexture(gl.TEXTURE0);
+        const texture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, filter);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, filter);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texImage2D(gl.TEXTURE_2D, 0, fmt.internalFormat, w, h, 0, fmt.format, halfFloat, null);
+        const fbo = gl.createFramebuffer();
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+        gl.viewport(0, 0, w, h);
+        gl.clearColor(0, 0, 0, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        return {
+          texture, fbo, width: w, height: h, tx: 1 / w, ty: 1 / h,
+          attach(unit) { gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, texture); return unit; },
+          dispose() { gl.deleteFramebuffer(fbo); gl.deleteTexture(texture); },
+        };
+      }
+      function makeDouble(w, h, fmt, filter) {
+        let a = makeFBO(w, h, fmt, filter);
+        let b = makeFBO(w, h, fmt, filter);
+        return {
+          width: w, height: h, tx: 1 / w, ty: 1 / h,
+          get read() { return a; }, set read(v) { a = v; },
+          get write() { return b; }, set write(v) { b = v; },
+          swap() { const t = a; a = b; b = t; },
+          dispose() { a.dispose(); b.dispose(); },
+        };
+      }
+      function resizeDouble(target, w, h, fmt, filter) {
+        if (target.width === w && target.height === h) return target;
+        const fresh = makeFBO(w, h, fmt, filter);
+        copyProg.use();
+        gl.uniform1i(copyProg.u.uTexture, target.read.attach(0));
+        blit(fresh);
+        target.read.dispose();
+        target.write.dispose();
+        target.read = fresh;
+        target.write = makeFBO(w, h, fmt, filter);
+        target.width = w; target.height = h; target.tx = 1 / w; target.ty = 1 / h;
+        return target;
+      }
+      function getResolution(res) {
+        const w = gl.drawingBufferWidth, h = gl.drawingBufferHeight;
+        let ar = w / h;
+        if (ar < 1) ar = 1 / ar;
+        const min = Math.round(res), max = Math.round(res * ar);
+        return w > h ? { width: max, height: min } : { width: min, height: max };
+      }
+
+      let dye, velocity, divergence, curlFBO, pressure;
+      function initFramebuffers() {
+        const sim = getResolution(cfg.SIM);
+        const dyeRes = getResolution(cfg.DYE);
+        const filter = linear ? gl.LINEAR : gl.NEAREST;
+        dye = dye ? resizeDouble(dye, dyeRes.width, dyeRes.height, fmtRGBA, filter) : makeDouble(dyeRes.width, dyeRes.height, fmtRGBA, filter);
+        velocity = velocity ? resizeDouble(velocity, sim.width, sim.height, fmtRG, filter) : makeDouble(sim.width, sim.height, fmtRG, filter);
+        if (divergence) { divergence.dispose(); curlFBO.dispose(); pressure.dispose(); }
+        divergence = makeFBO(sim.width, sim.height, fmtR, gl.NEAREST);
+        curlFBO = makeFBO(sim.width, sim.height, fmtR, gl.NEAREST);
+        pressure = makeDouble(sim.width, sim.height, fmtR, gl.NEAREST);
+      }
+      const dpr = () => Math.min(window.devicePixelRatio || 1, 2);
+      function resizeCanvas() {
+        const w = Math.max(1, Math.floor(canvas.clientWidth * dpr()));
+        const h = Math.max(1, Math.floor(canvas.clientHeight * dpr()));
+        if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; return true; }
+        return false;
+      }
+
+      /* ---- Simulation ---- */
+      function splat(x, y, dx, dy, color) {
+        const ar = canvas.width / canvas.height;
+        splatProg.use();
+        gl.uniform1i(splatProg.u.uTarget, velocity.read.attach(0));
+        gl.uniform1f(splatProg.u.aspectRatio, ar);
+        gl.uniform2f(splatProg.u.point, x, y);
+        gl.uniform3f(splatProg.u.color, dx, dy, 0);
+        gl.uniform1f(splatProg.u.radius, (cfg.SPLAT_RADIUS / 100) * (ar > 1 ? ar : 1));
+        blit(velocity.write);
+        velocity.swap();
+        gl.uniform1i(splatProg.u.uTarget, dye.read.attach(0));
+        gl.uniform3f(splatProg.u.color, color.r, color.g, color.b);
+        blit(dye.write);
+        dye.swap();
+      }
+      function step(dt) {
+        curlProg.use();
+        gl.uniform2f(curlProg.u.texelSize, velocity.tx, velocity.ty);
+        gl.uniform1i(curlProg.u.uVelocity, velocity.read.attach(0));
+        blit(curlFBO);
+
+        vortProg.use();
+        gl.uniform2f(vortProg.u.texelSize, velocity.tx, velocity.ty);
+        gl.uniform1i(vortProg.u.uVelocity, velocity.read.attach(0));
+        gl.uniform1i(vortProg.u.uCurl, curlFBO.attach(1));
+        gl.uniform1f(vortProg.u.curl, cfg.CURL);
+        gl.uniform1f(vortProg.u.dt, dt);
+        blit(velocity.write);
+        velocity.swap();
+
+        divProg.use();
+        gl.uniform2f(divProg.u.texelSize, velocity.tx, velocity.ty);
+        gl.uniform1i(divProg.u.uVelocity, velocity.read.attach(0));
+        blit(divergence);
+
+        clearProg.use();
+        gl.uniform1i(clearProg.u.uTexture, pressure.read.attach(0));
+        gl.uniform1f(clearProg.u.value, cfg.PRESSURE);
+        blit(pressure.write);
+        pressure.swap();
+
+        pressProg.use();
+        gl.uniform2f(pressProg.u.texelSize, velocity.tx, velocity.ty);
+        gl.uniform1i(pressProg.u.uDivergence, divergence.attach(0));
+        for (let i = 0; i < cfg.PRESSURE_ITERATIONS; i++) {
+          gl.uniform1i(pressProg.u.uPressure, pressure.read.attach(1));
+          blit(pressure.write);
+          pressure.swap();
+        }
+
+        gradProg.use();
+        gl.uniform2f(gradProg.u.texelSize, velocity.tx, velocity.ty);
+        gl.uniform1i(gradProg.u.uPressure, pressure.read.attach(0));
+        gl.uniform1i(gradProg.u.uVelocity, velocity.read.attach(1));
+        blit(velocity.write);
+        velocity.swap();
+
+        advectProg.use();
+        gl.uniform2f(advectProg.u.texelSize, velocity.tx, velocity.ty);
+        if (!linear) gl.uniform2f(advectProg.u.dyeTexelSize, velocity.tx, velocity.ty);
+        const vId = velocity.read.attach(0);
+        gl.uniform1i(advectProg.u.uVelocity, vId);
+        gl.uniform1i(advectProg.u.uSource, vId);
+        gl.uniform1f(advectProg.u.dt, dt);
+        gl.uniform1f(advectProg.u.dissipation, cfg.VELOCITY_DISSIPATION);
+        blit(velocity.write);
+        velocity.swap();
+
+        if (!linear) gl.uniform2f(advectProg.u.dyeTexelSize, dye.tx, dye.ty);
+        gl.uniform1i(advectProg.u.uVelocity, velocity.read.attach(0));
+        gl.uniform1i(advectProg.u.uSource, dye.read.attach(1));
+        gl.uniform1f(advectProg.u.dissipation, cfg.DENSITY_DISSIPATION);
+        blit(dye.write);
+        dye.swap();
+      }
+      function render() {
+        displayProg.use();
+        gl.uniform2f(displayProg.u.texelSize, 1 / gl.drawingBufferWidth, 1 / gl.drawingBufferHeight);
+        gl.uniform1i(displayProg.u.uTexture, dye.read.attach(0));
+        blit(null);
+      }
+
+      /* ---- Colour: a slow sweep through the spectrum ---- */
+      function hsv(h, s, v) {
+        const i = Math.floor(h * 6), f = h * 6 - i;
+        const p = v * (1 - s), q = v * (1 - f * s), t = v * (1 - (1 - f) * s);
+        switch (((i % 6) + 6) % 6) {
+          case 0: return { r: v, g: t, b: p };
+          case 1: return { r: q, g: v, b: p };
+          case 2: return { r: p, g: v, b: t };
+          case 3: return { r: p, g: q, b: v };
+          case 4: return { r: t, g: p, b: v };
+          default: return { r: v, g: p, b: q };
+        }
+      }
+      const tint = (h, k) => { const c = hsv(h, 1, 1); return { r: c.r * k, g: c.g * k, b: c.b * k }; };
+      let hue = 0.36; // start on green, drift through yellow, orange, pink
+
+      /* ---- Input ---- */
+      const ptr = { x: 0.5, y: 0.5, dx: 0, dy: 0, moved: false, ready: false };
+      const toUV = (cx, cy) => [cx / (canvas.clientWidth || innerWidth), 1 - cy / (canvas.clientHeight || innerHeight)];
+      function onMove(cx, cy) {
+        const [x, y] = toUV(cx, cy);
+        if (!ptr.ready) { ptr.x = x; ptr.y = y; ptr.ready = true; return; }
+        let dx = x - ptr.x, dy = y - ptr.y;
+        const ar = canvas.width / canvas.height;
+        if (ar < 1) dx *= ar; else dy /= ar;
+        ptr.x = x; ptr.y = y;
+        ptr.dx += dx; ptr.dy += dy;
+        ptr.moved = true;
+        wake();
+      }
+      function burst(cx, cy, strength) {
+        const [x, y] = toUV(cx, cy);
+        const ar = canvas.width / canvas.height;
+        const n = 6, r = 0.012;
+        for (let i = 0; i < n; i++) {
+          const a = (i / n) * Math.PI * 2 + Math.random() * 0.5;
+          splat(x + (Math.cos(a) * r) / ar, y + Math.sin(a) * r,
+            Math.cos(a) * 700 * strength, Math.sin(a) * 700 * strength,
+            tint((hue + i / n) % 1, cfg.INTENSITY * 2.2 * strength));
+        }
+        wake();
+      }
+      addEventListener('mousemove', (e) => onMove(e.clientX, e.clientY), { passive: true });
+      root.addEventListener('mouseleave', () => { ptr.ready = false; });
+      addEventListener('touchstart', (e) => { const t = e.touches[0]; if (t) { ptr.ready = false; onMove(t.clientX, t.clientY); } }, { passive: true });
+      addEventListener('touchmove', (e) => { const t = e.touches[0]; if (t) onMove(t.clientX, t.clientY); }, { passive: true });
+      addEventListener('mousedown', (e) => { if (e.button === 0) burst(e.clientX, e.clientY, 0.5); }, { passive: true });
+      canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); lost = true; root.classList.add('no-fluid'); });
+
+      /* ---- Opening swirl: a figure-eight drawn around the headline ---- */
+      const intro = { on: !reduceMotion, t: 0, dur: 2.4, px: 0, py: 0, started: false };
+      function runIntro(dt) {
+        intro.t += dt;
+        const k = intro.t / intro.dur;
+        if (k >= 1) { intro.on = false; lastInput = performance.now(); return; }
+        const a = k * Math.PI * 2 + 0.6;
+        const x = 0.5 + 0.34 * Math.sin(a);
+        const y = 0.6 + 0.13 * Math.sin(2 * a);
+        if (intro.started) {
+          let dx = x - intro.px, dy = y - intro.py;
+          const ar = canvas.width / canvas.height;
+          if (ar < 1) dx *= ar; else dy /= ar;
+          splat(x, y, dx * cfg.SPLAT_FORCE, dy * cfg.SPLAT_FORCE, tint(hue, cfg.INTENSITY * 0.85));
+        }
+        intro.px = x; intro.py = y; intro.started = true;
+      }
+
+      /* ---- Loop: runs while there is something to show, then sleeps ---- */
+      let running = false, lost = false, last = 0, lastInput = performance.now();
+      function frame() {
+        if (lost) { running = false; return; }
+        const now = performance.now();
+        const dt = Math.min((now - last) / 1000, 1 / 60);
+        last = now;
+        if (resizeCanvas()) initFramebuffers();
+        hue = (hue - dt * 0.16 + 1) % 1;
+        if (intro.on) runIntro(dt);
+        if (ptr.moved) {
+          ptr.moved = false;
+          splat(ptr.x, ptr.y, ptr.dx * cfg.SPLAT_FORCE, ptr.dy * cfg.SPLAT_FORCE, tint(hue, cfg.INTENSITY));
+          ptr.dx = 0; ptr.dy = 0;
+        }
+        step(dt);
+        render();
+        if (!intro.on && now - lastInput > 5000) {
+          blit(null);
+          gl.clearColor(0, 0, 0, 0);
+          gl.clear(gl.COLOR_BUFFER_BIT);
+          running = false;
+          return;
+        }
+        requestAnimationFrame(frame);
+      }
+      function wake() {
+        lastInput = performance.now();
+        if (!running && !lost) {
+          running = true;
+          last = performance.now();
+          requestAnimationFrame(frame);
+        }
+      }
+
+      resizeCanvas();
+      initFramebuffers();
+      window.__fluid = { ok: true, webgl2: isGL2, linear, dye: cfg.DYE };
+      wake();
+      return { burst, wake };
+    } catch (err) {
+      return fail(err);
+    }
+  })();
+})();
+</script>
 </body>
 </html>
